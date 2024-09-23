@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - springboot-mongo-network
+
+  springboot-app:
+    image: my-spring-boot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/my_first_spring_project
+    ports:
+      - 8080:8080
+    networks:
+      - springboot-mongo-network
+
+volumes:
+  mongo-data:
+
+networks:
+  springboot-mongo-network:
