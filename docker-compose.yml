@@ -11,20 +11,50 @@ services:
     networks:
       - springboot-mongo-network
 
-  springboot-app:
-    image: my-spring-boot-app
-    build:
-      context: .
+
+  sb-user-business:
+    image: sb-user-business
+    build: 
+      context: ./sb-user-business
       dockerfile: Dockerfile
-    depends_on:
-      - mongo
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/my_first_spring_project
+    depends_on:
+      - mongo
     ports:
-      - 8080:8080
+      - "7072:7072"
     networks:
       - springboot-mongo-network
 
+  sb-blog-business:
+    image: sb-blog-business
+    build: 
+      context: ./sb-blog-business
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/my_first_spring_project
+    depends_on:
+      - mongo
+    ports:
+      - "7071:7071"
+    networks:
+      - springboot-mongo-network
+
+  sb-blog-info:
+    image: sb-blog-info
+    build: 
+      context: ./sb-blog-info
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/my_first_spring_project
+    depends_on:
+      - mongo
+    ports:
+      - "7070:7070"
+    networks:
+      - springboot-mongo-network
+
+  
 volumes:
   mongo-data:
 

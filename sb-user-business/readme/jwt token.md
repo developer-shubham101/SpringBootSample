@@ -1,0 +1,347 @@
+To implement **JWT token-based authentication** in **Spring Boot** with **MongoDB** as the user store, we need to follow these steps:
+
+1. **Add Dependencies** for MongoDB, Spring Security, JWT, and Spring Web.
+2. **Create MongoDB User Model** and **Repository**.
+3. **Create a Service** to manage user registration and authentication.
+4. **Create JWT Utility** for token generation and validation.
+5. **Create JWT Filter** to intercept requests and validate tokens.
+6. **Configure Spring Security** to integrate JWT.
+7. **Create Controllers** for user registration and login.
+8. **Test the API**.
+
+### Step-by-Step Implementation
+
+### 1. **Add Dependencies to `pom.xml`**
+
+```xml
+<dependencies>
+    <!-- Spring Boot Web Dependency -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- Spring Boot Security Dependency -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- JWT Library for creating tokens -->
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>0.9.1</version>
+    </dependency>
+
+    <!-- Spring Boot MongoDB Dependency -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+
+    <!-- Lombok (Optional for reducing boilerplate code) -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+</dependencies>
+```
+
+### 2. **Create MongoDB User Model**
+
+Create a `User` model representing the user information to be stored in MongoDB.
+
+```java
+package com.example.demo.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "users")
+public class User {
+
+    @Id
+    private String id;
+    private String username;
+    private String password;
+
+    // Getters and Setters
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
+```
+
+### 3. **Create User Repository**
+
+We will create a MongoDB repository to manage user data:
+
+```java
+package com.example.demo.repository;
+
+import com.example.demo.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByUsername(String username);
+}
+```
+
+### 4. **Create JWT Utility Class**
+
+This class will be responsible for generating and validating JWT tokens.
+
+```java
+package com.example.demo.util;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+public class JwtUtil {
+
+    private String SECRET_KEY = "secret";  // Use a secure key in production
+
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))  // Token valid for 10 hours
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+    }
+
+    public String extractUsername(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateToken(String token, String username) {
+        final String extractedUsername = extractUsername(token);
+        return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
+    }
+}
+```
+
+### 5. **Create JWT Filter**
+
+This filter will intercept incoming HTTP requests and check the `Authorization` header for a JWT token. It will validate the token and set the authentication context.
+
+```java
+package com.example.demo.filter;
+
+import com.example.demo.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Component
+public class JwtRequestFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
+        final String authorizationHeader = request.getHeader("Authorization");
+
+        String username = null;
+        String jwt = null;
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            jwt = authorizationHeader.substring(7);
+            username = jwtUtil.extractUsername(jwt);
+        }
+
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (jwtUtil.validateToken(jwt, username)) {
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(username, null, null);
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            }
+        }
+
+        chain.doFilter(request, response);
+    }
+}
+```
+
+### 6. **Spring Security Configuration**
+
+Configure **Spring Security** to allow JWT-based authentication.
+
+```java
+package com.example.demo.config;
+
+import com.example.demo.filter.JwtRequestFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+            .authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
+            .anyRequest().authenticated()
+            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+}
+```
+
+### 7. **Create Authentication Controller**
+
+This controller handles user registration and login requests.
+
+```java
+package com.example.demo.controller;
+
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class AuthenticationController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user) {
+        userRepository.save(user);
+        return "User registered successfully";
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticate(@RequestBody User user) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("Invalid username or password", e);
+        }
+
+        return jwtUtil.generateToken(user.getUsername());
+    }
+}
+```
+
+### 8. **Testing the API**
+
+- **User Registration**: POST request to `/register`:
+
+  ```json
+  {
+      "username": "user1",
+      "password": "password"
+  }
+  ```
+
+- **User Authentication**: POST request to `/authenticate`:
+
+  ```json
+  {
+      "username": "user1",
+      "password": "password"
+  }
+  ```
+
+  This will return a **JWT token** in the response. For accessing protected endpoints, you need to pass this token in the `Authorization` header like:
+
+  ```bash
+  Authorization: Bearer <JWT-TOKEN>
+  ```
+
+---
+
+This setup implements JWT-based authentication with MongoDB using Spring Boot. You can secure your application by storing user credentials in MongoDB and generating JWT tokens upon
+
+successful login.
