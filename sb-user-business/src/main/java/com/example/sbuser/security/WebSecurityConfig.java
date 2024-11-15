@@ -26,9 +26,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   private static final String[] SWAGGER_WHITELIST = {
     "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
-  };
-  private static final String[] OTHER_WHITELIST = {"/api/auth/**", "/api/test/**"};
+  }; // Endpoints for Swagger documentation that are publicly accessible
+
+  private static final String[] OTHER_WHITELIST = {
+    "/api/auth/**", "/system/**"
+  }; // Other endpoints that are publicly accessible, such as authentication and test endpoints
+
+  private static final String[] ADMIN_RESTRICT = {"/admin/**"};
+
+  // Injecting custom implementation of UserDetailsService for loading user-specific data
   @Autowired UserDetailsServiceImpl userDetailsService;
+
+  // Injecting the authentication entry point to handle unauthorized access attempts
   @Autowired private AuthEntryPointJwt unauthorizedHandler;
 
   @Bean
@@ -86,21 +95,33 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http.csrf(csrf -> csrf.disable())
-        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-        .sessionManagement(
-            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(
-            auth ->
-                auth.requestMatchers(OTHER_WHITELIST)
-                    .permitAll()
-                    .requestMatchers(SWAGGER_WHITELIST)
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated());
+    // Disable CSRF protection as it's not needed for stateless APIs
+    http.csrf(csrf -> csrf.disable());
 
+    // Handle unauthorized access exceptions
+    http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
+
+    // Configure session management to be stateless (no session creation)
+    http.sessionManagement(
+        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    // Configure authorization rules
+    http.authorizeHttpRequests(
+        auth ->
+            auth.requestMatchers(
+                    OTHER_WHITELIST) // Allow access to endpoints in the OTHER_WHITELIST
+                .permitAll()
+                .requestMatchers(SWAGGER_WHITELIST) // Allow access to Swagger-related endpoints
+                .permitAll()
+                .requestMatchers(ADMIN_RESTRICT)
+                .hasAnyAuthority("ROLE_ADMIN")
+                .anyRequest() // All other requests must be authenticated
+                .authenticated());
+
+    // Use the custom authentication provider for authentication
     http.authenticationProvider(authenticationProvider());
 
+    // Add JWT token filter before the username/password authentication filter
     http.addFilterBefore(
         authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

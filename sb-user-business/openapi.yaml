@@ -6,8 +6,8 @@ info:
 paths:
   /users/v1/:
     get:
-      summary: Retrieve all users
-      operationId: getUsers
+      summary: Retrieve current user details
+      operationId: getUserDetails
       responses:
         default:
           $ref: '#/components/responses/HttpErrorResponse'
@@ -16,9 +16,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserReq'
+                $ref: '#/components/schemas/UserReq'
     post:
       summary: Add a new user
       operationId: addUser
@@ -33,6 +31,50 @@ paths:
           $ref: '#/components/responses/HttpErrorResponse'
         '201':
           description: User added successfully
+    put:
+      summary: Update a user by ID
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserReq'
+      responses:
+        default:
+          $ref: '#/components/responses/HttpErrorResponse'
+
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReq'
+        '404':
+          description: User not found
+
+  /users/v1/update-profile-photo:
+    put:
+      summary: Update a user profile photo
+      operationId: updateUserProfilePhoto
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserUpdateReq'
+      responses:
+        default:
+          $ref: '#/components/responses/HttpErrorResponse'
+
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserReq'
+        '404':
+          description: User not found
   /users/v1/search:
     get:
       tags:
@@ -99,25 +141,9 @@ paths:
                 $ref: '#/components/schemas/UserReq'
         '404':
           description: User not found
-    put:
-      summary: Update a user by ID
-      operationId: updateUserById
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserReq'
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '200':
-          description: User updated successfully
-        '404':
-          description: User not found
     delete:
       summary: Delete a user by ID
-      operationId: deleteUserById
+      operationId: deleteUser
       responses:
         default:
           $ref: '#/components/responses/HttpErrorResponse'
@@ -137,8 +163,29 @@ components:
           type: string
         username:
           type: string
+          example: user123
         email:
           type: string
+          example: user@example.com
+        profileImage:
+          type: string
+#        gender:
+#          type: string
+#          enum:
+#            - Male
+#            - Female
+#            - Others
+
+
+    UserUpdateReq:
+      required:
+        - file
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+
     APIError:
       type: object
       properties:

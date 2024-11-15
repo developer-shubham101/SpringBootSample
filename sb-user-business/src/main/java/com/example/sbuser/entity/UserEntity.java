@@ -13,6 +13,7 @@ public class UserEntity {
   private String username;
   private String password;
   private String email;
+  private String profileImage;
   @DBRef private Set<Role> roles = new HashSet<>();
 
   public UserEntity(String username, String email, String password) {

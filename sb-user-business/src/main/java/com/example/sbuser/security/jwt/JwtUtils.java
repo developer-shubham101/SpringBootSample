@@ -17,10 +17,10 @@ public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
   @Value("${auth.jwtSecret}")
-  private String jwtSecret;
+  private String jwtSecret; // Secret key used for signing and verifying JWT tokens
 
   @Value("${auth.jwtExpirationMs}")
-  private int jwtExpirationMs;
+  private int jwtExpirationMs; // JWT token expiration time in milliseconds
 
   public String generateJwtToken(Authentication authentication) {
 

@@ -15,16 +15,18 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 public interface UserMapper {
   //    @Mapping(source = "id", target = "id")
   //    @Mapping(source = "username", target = "username")
-  UserReq mapToResponseBean(UserEntity sourceBean);
+  UserReq mapToResponseEntity(UserEntity sourceBean);
 
-  default List<UserReq> mapToResponseBeans(List<UserEntity> sourceBeans) {
+  UserEntity mapFromReqToUserEntity(UserReq sourceBean);
+
+  default List<UserReq> mapToResponseEntityList(List<UserEntity> sourceBeans) {
     if (sourceBeans == null) {
       return null;
     }
 
     ArrayList<UserReq> targetBeans = new ArrayList<>();
     for (UserEntity sourceBean : sourceBeans) {
-      targetBeans.add(mapToResponseBean(sourceBean));
+      targetBeans.add(mapToResponseEntity(sourceBean));
     }
     return targetBeans;
   }

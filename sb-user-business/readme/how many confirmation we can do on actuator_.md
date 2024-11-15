@@ -1,0 +1,256 @@
+**Spring Boot Actuator** offers a wide range of configurable options for monitoring and managing your application. You can customize various aspects of Actuator, including the endpoints it exposes, security, metrics collection, health indicators, and integration with monitoring systems.
+
+### **Key Areas of Configuration for Spring Boot Actuator**
+
+#### **1. Endpoint Configuration**
+Spring Boot Actuator exposes multiple endpoints (e.g., `/actuator/health`, `/actuator/metrics`) that provide different types of information. These endpoints can be individually enabled, disabled, secured, and customized.
+
+- **Enable/Disable Specific Endpoints**:
+  By default, not all endpoints are exposed. You can specify which endpoints should be available over HTTP using the `management.endpoints.web.exposure.include` or `exclude` properties.
+
+  ```properties
+  # Expose only health and info endpoints
+  management.endpoints.web.exposure.include=health,info
+
+  # Expose all endpoints (use carefully in production)
+  management.endpoints.web.exposure.include=*
+
+  # Disable certain endpoints
+  management.endpoints.web.exposure.exclude=beans
+  ```
+
+- **Base Path for Endpoints**:
+  You can change the base URL path of Actuator endpoints (default is `/actuator`).
+
+  ```properties
+  # Change the base path for actuator endpoints
+  management.endpoints.web.base-path=/management
+  ```
+
+- **Port Configuration**:
+  You can run Actuator endpoints on a different port than the main application.
+
+  ```properties
+  management.server.port=8081
+  ```
+
+---
+
+#### **2. Health Indicators**
+Spring Boot Actuator provides a health endpoint (`/actuator/health`) that reports the health of your application. You can add custom health checks or configure built-in ones.
+
+- **Show Health Details**:
+  Control whether the detailed health status is shown or just the up/down status.
+
+  ```properties
+  # Show detailed health information (useful in dev but limit in prod)
+  management.endpoint.health.show-details=always
+  
+  # Never show detailed health in production
+  management.endpoint.health.show-details=never
+  ```
+
+- **Enable/Disable Health Indicators**:
+  You can enable or disable specific health indicators.
+
+  ```properties
+  # Disable certain health checks
+  management.health.diskspace.enabled=false
+  management.health.db.enabled=true
+  ```
+
+- **Custom Health Indicators**:
+  You can define custom health indicators by implementing the `HealthIndicator` interface.
+
+  ```java
+  @Component
+  public class CustomHealthIndicator implements HealthIndicator {
+      @Override
+      public Health health() {
+          // Custom logic
+          return Health.up().withDetail("status", "All systems operational").build();
+      }
+  }
+  ```
+
+---
+
+#### **3. Metrics and Monitoring**
+Metrics provide insights into the performance and usage of your application. Spring Boot Actuator integrates with Micrometer to expose metrics like JVM memory usage, CPU usage, HTTP request performance, etc.
+
+- **Enable/Disable Metrics**:
+  Metrics collection is enabled by default, but you can disable specific ones.
+
+  ```properties
+  # Disable JVM metrics
+  management.metrics.enable.jvm=false
+
+  # Enable only specific metrics
+  management.metrics.enable.process.files=true
+  ```
+
+- **Custom Metrics**:
+  You can define custom metrics using Micrometer's `MeterRegistry`.
+
+  ```java
+  @Component
+  public class CustomMetrics {
+      public CustomMetrics(MeterRegistry meterRegistry) {
+          Counter counter = meterRegistry.counter("custom_metric_counter");
+          counter.increment();
+      }
+  }
+  ```
+
+- **Integration with Monitoring Systems**:
+  Spring Boot Actuator can integrate with external monitoring systems like Prometheus, Graphite, or Datadog. For Prometheus, include the `micrometer-registry-prometheus` dependency and expose the `/actuator/prometheus` endpoint.
+
+  ```properties
+  # Enable Prometheus metrics
+  management.endpoints.web.exposure.include=prometheus
+  ```
+
+---
+
+#### **4. Logging Configuration**
+You can dynamically view or change the logging levels of your application via the `/actuator/loggers` endpoint.
+
+- **View and Change Log Levels**:
+  You can inspect and modify logging levels without restarting your application.
+
+  ```properties
+  # Enable the loggers endpoint
+  management.endpoints.web.exposure.include=loggers
+  ```
+
+    - To view the logging level for a specific package, make a GET request to `/actuator/loggers/{package-name}`.
+    - To change the logging level dynamically, make a POST request:
+
+      ```bash
+      curl -X POST -d '{"configuredLevel": "DEBUG"}' \
+      -H "Content-Type: application/json" http://localhost:8080/actuator/loggers/com.example
+      ```
+
+---
+
+#### **5. HTTP Tracing**
+The `httptrace` endpoint provides information about HTTP requests and responses. You can view recent HTTP request traces and understand how your application handles incoming traffic.
+
+- **Enable HTTP Tracing**:
+  To enable HTTP tracing, add the `spring-boot-starter-actuator` dependency and expose the endpoint.
+
+  ```properties
+  # Expose the httptrace endpoint
+  management.endpoints.web.exposure.include=httptrace
+  ```
+
+- **Custom HTTP Tracing**:
+  You can create a custom `HttpTraceRepository` to persist or filter traces.
+
+---
+
+#### **6. Environment Information**
+The `/actuator/env` endpoint exposes environment properties, including application properties, system properties, and environment variables.
+
+- **Restrict Access to Sensitive Properties**:
+  You can configure which environment properties are exposed.
+
+  ```properties
+  # Enable detailed environment info (use with caution)
+  management.endpoint.env.show-details=always
+
+  # Limit exposure in production environments
+  management.endpoint.env.show-details=never
+  ```
+
+---
+
+#### **7. CORS Configuration for Actuator Endpoints**
+If you're exposing Actuator endpoints externally, you might need to configure Cross-Origin Resource Sharing (CORS) for security reasons.
+
+```properties
+# Enable CORS for actuator endpoints
+management.endpoints.web.cors.allowed-origins=https://your-frontend-domain.com
+management.endpoints.web.cors.allowed-methods=GET,POST
+```
+
+---
+
+#### **8. Security for Actuator Endpoints**
+For production environments, it is crucial to secure the Actuator endpoints. This can be done by integrating Spring Security or using basic authentication.
+
+- **Integrate Spring Security**:
+  You can define security rules for Actuator endpoints via Spring Security.
+
+  ```java
+  @Configuration
+  public class SecurityConfig extends WebSecurityConfigurerAdapter {
+      @Override
+      protected void configure(HttpSecurity http) throws Exception {
+          http
+              .authorizeRequests()
+              .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
+              .and()
+              .httpBasic();  // Enable basic auth
+      }
+  }
+  ```
+
+- **Restrict Access to Specific Endpoints**:
+  Limit access to sensitive endpoints based on roles or permissions.
+
+  ```properties
+  management.endpoints.web.exposure.include=health,info
+  ```
+
+---
+
+### **List of Common Actuator Endpoints**
+
+- **`/actuator/health`**: Displays the health status of the application.
+- **`/actuator/info`**: Provides general information about the application (e.g., version, description).
+- **`/actuator/metrics`**: Shows application metrics like memory usage, CPU, HTTP request stats.
+- **`/actuator/loggers`**: View and modify log levels dynamically.
+- **`/actuator/httptrace`**: Displays the last few HTTP requests and responses.
+- **`/actuator/env`**: Displays environment variables and configuration properties.
+- **`/actuator/beans`**: Shows all Spring beans in the application context.
+- **`/actuator/threaddump`**: Provides a thread dump for debugging.
+- **`/actuator/prometheus`**: Exposes metrics in a format consumable by Prometheus.
+- **`/actuator/scheduledtasks`**: Displays scheduled tasks.
+- **`/actuator/caches`**: Shows cache statistics.
+
+---
+
+### **Customizing Actuator Behavior**
+
+You can extend and customize Actuator behavior in several ways:
+
+1. **Custom Endpoints**: Create custom Actuator endpoints by implementing the `@Endpoint` annotation.
+
+   ```java
+   @Endpoint(id = "customEndpoint")
+   public class CustomEndpoint {
+   
+       @ReadOperation
+       public String customStatus() {
+           return "Custom endpoint is working";
+       }
+   }
+   ```
+
+2. **Custom Health Indicators**: Add application-specific health checks to the `/actuator/health` endpoint.
+3. **Custom Metrics**: Use the `MeterRegistry` to track and expose custom application metrics.
+
+---
+
+### **Summary of Configurable Actuator Options**
+
+- **Endpoint Exposure**: Choose which endpoints to expose, include, or exclude.
+- **Security**: Protect sensitive endpoints using authentication and authorization.
+- **Health Indicators**: Enable/disable built-in health checks and add custom health indicators.
+- **Metrics**: Customize and extend metrics collection, and integrate with external monitoring systems like Prometheus or Graphite.
+- **Environment**: Configure environment variable access via the `/env` endpoint.
+- **CORS**: Define cross-origin resource sharing for actuator endpoints if needed.
+- **Logging**: Dynamically change logging levels via the `/loggers` endpoint.
+
+In total, Actuator provides a comprehensive set of features to monitor and manage your application, which can be highly customized to suit the needs of your environment.

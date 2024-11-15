@@ -4,14 +4,17 @@ import com.example.sbuser.dto.UserReq;
 import com.example.sbuser.entity.UserEntity;
 import com.example.sbuser.mapper.UserMapper;
 import com.example.sbuser.repository.UserRepository;
+import com.example.sbuser.utility.FileUtility;
 import com.github.rutledgepaulv.qbuilders.builders.GeneralQueryBuilder;
 import com.github.rutledgepaulv.qbuilders.conditions.Condition;
 import com.github.rutledgepaulv.qbuilders.visitors.MongoVisitor;
 import com.github.rutledgepaulv.rqe.pipes.QueryConversionPipeline;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,11 +25,14 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
 @CrossOrigin(origins = "*")
 public class UserService {
+
+  private final Environment environment;
   private final MongoTemplate template;
   private final UserMapper userMapper; // @RequiredArgsConstructor will create constructor
   private static final QueryConversionPipeline pipeline = QueryConversionPipeline.defaultPipeline();
@@ -65,7 +71,7 @@ public class UserService {
 
     List<UserEntity> orders = template.find(dynamicQuery, UserEntity.class);
 
-    List<UserReq> users = userMapper.mapToResponseBeans(orders);
+    List<UserReq> users = userMapper.mapToResponseEntityList(orders);
 
     return PageableExecutionUtils.getPage(users, pageable, () -> count);
   }
@@ -92,6 +98,14 @@ public class UserService {
     userRepository.deleteById(id);
   }
 
+  public Optional<UserEntity> getUser(String username) {
+    return userRepository.findByUsername(username);
+  }
+
+  public Optional<UserEntity> getUserById(String id) {
+    return userRepository.findById(id);
+  }
+
   public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
     return userRepository
         .findByUsername(username)
@@ -102,5 +116,18 @@ public class UserService {
     return userRepository
         .findById(id)
         .orElseThrow(() -> new UsernameNotFoundException("user id not found"));
+  }
+
+  public UserEntity uploadUserProfile(MultipartFile file, String username) {
+    String absoluteFileUrl = environment.getProperty("file.absolute.url");
+    String uploadedFileUrl = FileUtility.fileUpload(file, absoluteFileUrl);
+
+    UserEntity existingUserEntity = userRepository.findByUsername(username).orElse(null);
+    if (existingUserEntity != null) {
+      existingUserEntity.setProfileImage(uploadedFileUrl);
+
+      return userRepository.save(existingUserEntity);
+    }
+    return null;
   }
 }
