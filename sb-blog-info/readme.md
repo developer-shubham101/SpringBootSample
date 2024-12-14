@@ -29,7 +29,7 @@ Edit the `application.properties` file located in the `src/main/resources/` dire
 ```properties
 spring.data.mongodb.host=localhost
 spring.data.mongodb.port=27017
-spring.data.mongodb.database=my_first_spring_project
+spring.data.mongodb.database=ss_blog
 ```
 
 #### Step 2: Run the Spring Boot Application Using Maven

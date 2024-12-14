@@ -1,0 +1,224 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  version: 1.0.0
+
+paths:
+  /comments/v1/:
+    post:
+      summary: Create a New Comment
+      operationId: createComment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '201':
+          description: Comment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        default:
+          description: Error creating comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      summary: Retrieve All Comments
+      operationId: getAllComments
+      responses:
+        '200':
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentResponse'
+        default:
+          description: Error retrieving comments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /comments/v1/blog/{blogId}:
+    parameters:
+      - in: path
+        name: blogId
+        required: true
+        description: ID of the blog
+        schema:
+          type: string
+    get:
+      summary: Retrieve Comments for a Specific Blog
+      operationId: getCommentsByBlogId
+      responses:
+        '200':
+          description: List of comments for the blog
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentResponse'
+        default:
+          description: Error retrieving comments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /comments/v1/search:
+    get:
+      summary: Search Comments
+      operationId: searchComments
+      parameters:
+        - name: query
+          in: query
+          description: Search query using RSQL expression (e.g., `userId==10`)
+          required: false
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          description: Sort by a specific field (e.g., `createdAt`)
+          required: false
+          schema:
+            type: string
+        - name: size
+          in: query
+          description: Number of results per page
+          required: true
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: Page number (starting from 0)
+          required: true
+          schema:
+            type: integer
+        - name: sortDir
+          in: query
+          description: Sort direction (asc or desc)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+        default:
+          description: Error searching comments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /comments/v1/{commentId}:
+    parameters:
+      - in: path
+        name: commentId
+        required: true
+        description: ID of the comment
+        schema:
+          type: string
+    get:
+      summary: Retrieve a Comment by ID
+      operationId: getCommentById
+      responses:
+        '200':
+          description: Comment found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '404':
+          description: Comment not found
+        default:
+          description: Error retrieving comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Update a Comment by ID
+      operationId: updateCommentById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: Comment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '404':
+          description: Comment not found
+        default:
+          description: Error updating comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a Comment by ID
+      operationId: deleteCommentById
+      responses:
+        '204':
+          description: Comment deleted successfully
+        '404':
+          description: Comment not found
+        default:
+          description: Error deleting comment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+
+    # Comment entity
+    CommentRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        blogId:
+          type: string
+        content:
+          type: string
+
+    CommentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        blogId:
+          type: string
+        content:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string

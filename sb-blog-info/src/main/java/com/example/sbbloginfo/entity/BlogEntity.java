@@ -3,13 +3,17 @@ package com.example.sbbloginfo.entity;
 import java.util.Date;
 import java.util.List;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data // this annotation will create Getters and setters
 @Document(collection = "blogs")
 public class BlogEntity {
   /** Unique identifier for the blog. */
-  private Long id;
+  @Id private String id;
+
+  /** Unique identifier for the blog. */
+  private String userId;
 
   /** Title of the blog. */
   private String title;

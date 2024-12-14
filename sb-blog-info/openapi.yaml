@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 
 paths:
-  /blogs/v1/:
+  /blogs/v1/info/:
     get:
       summary: Retrieve all blogs
       operationId: getBlogs
@@ -18,22 +18,9 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BlogReq'
-    post:
-      summary: Add a new user
-      operationId: addBlog
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BlogReq'
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '201':
-          description: User added successfully
-  /blogs/v1/search:
+                  $ref: '#/components/schemas/BlogResponse'
+
+  /blogs/v1/info/search:
     get:
       tags:
         - Users
@@ -78,10 +65,34 @@ paths:
         default:
           $ref: '#/components/responses/HttpErrorResponse'
 
-  /blogs/v1/{userId}:
+  /blogs/v1/info/user/{userId}:
     parameters:
       - in: path
         name: userId
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Retrieve a blog by user Id
+      operationId: getBlogsByUser
+      responses:
+        default:
+          $ref: '#/components/responses/HttpErrorResponse'
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogResponse'
+        '404':
+          description: User not found
+
+  /blogs/v1/{blogId}:
+    parameters:
+      - in: path
+        name: blogId
         required: true
         schema:
           type: string
@@ -96,49 +107,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BlogReq'
-        '404':
-          description: User not found
-    put:
-      summary: Update a user by ID
-      operationId: updateUserById
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BlogReq'
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '200':
-          description: User updated successfully
-        '404':
-          description: User not found
-    delete:
-      summary: Delete a user by ID
-      operationId: deleteUserById
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '204':
-          description: User deleted successfully
+                $ref: '#/components/schemas/BlogResponse'
         '404':
           description: User not found
 
 components:
   schemas:
 
-    # User entity
-    BlogReq:
+    # Blog entity
+    BlogResponse:
       type: object
       properties:
         id:
           type: string
         title:
           type: string
+        userId:
+          type: string
         content:
           type: string
+        categories:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        comments:
+          type: array
+          items:
+            type: CommentRes
+
+    CommentRes:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        blogId:
+          type: string
+        content:
+          type: string
+
     APIError:
       type: object
       properties:

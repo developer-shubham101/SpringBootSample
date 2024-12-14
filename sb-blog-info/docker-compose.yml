@@ -19,7 +19,7 @@ services:
     depends_on:
       - mongo
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/my_first_spring_project
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/ss_blog
     ports:
       - 7070:7070
     networks:

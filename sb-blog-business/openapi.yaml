@@ -4,24 +4,10 @@ info:
   version: 1.0.0
 
 paths:
-  /blogs/v1/:
-    get:
-      summary: Retrieve all blogs
-      operationId: getBlogs
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '200':
-          description: A list of users
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BlogReq'
+  /blogs/v1/business/:
     post:
-      summary: Add a new user
-      operationId: addBlog
+      summary: Add a New Blog
+      operationId: createNewBlog
       requestBody:
         required: true
         content:
@@ -29,79 +15,36 @@ paths:
             schema:
               $ref: '#/components/schemas/BlogReq'
       responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
         '201':
-          description: User added successfully
-  /blogs/v1/search:
-    get:
-      tags:
-        - Users
-      summary: Search blogs
-      description: It will provide search capability on users.
-      operationId: searchBlogs
-      parameters:
-        - name: query
-          in: query
-          description: Search user on basis on RSQL expression
-          required: false
-          explode: true
-          schema:
-            type: string
-        - name: sortBy
-          in: query
-          required: false
-          schema:
-            type: string
-        - name: size
-          in: query
-          required: true
-          schema:
-            type: integer
-        - name: page
-          in: query
-          required: true
-          schema:
-            type: integer
-        - name: sortDir
-          in: query
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: The request was successful
+          description: Blog created successfully
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/BlogRes'
+        '400':
+          description: Bad Request (missing required fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         default:
-          $ref: '#/components/responses/HttpErrorResponse'
+          description: Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  /blogs/v1/{userId}:
+  /blogs/v1/business/{blogId}:
     parameters:
       - in: path
-        name: userId
+        name: blogId
         required: true
+        description: ID of the blog
         schema:
           type: string
-    get:
-      summary: Retrieve a user by ID
-      operationId: getBlogById
-      responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
-        '200':
-          description: User found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BlogReq'
-        '404':
-          description: User not found
     put:
-      summary: Update a user by ID
-      operationId: updateUserById
+      summary: Update an Existing Blog
+      operationId: updateBlog
       requestBody:
         required: true
         content:
@@ -109,37 +52,151 @@ paths:
             schema:
               $ref: '#/components/schemas/BlogReq'
       responses:
-        default:
-          $ref: '#/components/responses/HttpErrorResponse'
         '200':
-          description: User updated successfully
+          description: Blog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRes'
+        '400':
+          description: Bad Request (invalid request body or missing required fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: User not found
-    delete:
-      summary: Delete a user by ID
-      operationId: deleteUserById
-      responses:
+          description: Blog not found
         default:
-          $ref: '#/components/responses/HttpErrorResponse'
+          description: Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Delete a Blog
+      operationId: deleteBlog
+      responses:
         '204':
-          description: User deleted successfully
+          description: Blog deleted successfully
         '404':
-          description: User not found
+          description: Blog not found
+        default:
+          description: Error deleting blog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /blogs/v1/business/{blogId}/comments:
+    parameters:
+      - in: path
+        name: blogId
+        required: true
+        description: ID of the blog
+        schema:
+          type: string
+    post:
+      summary: Create a New Comment for a Blog
+      operationId: createBlogComment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '201':
+          description: Comment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '400':
+          description: Bad Request (missing required fields or invalid request body)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Blog not found
+        default:
+          description: Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
 
-    # User entity
+    # Blog entity
     BlogReq:
       type: object
+      required:
+        - userId
+        - title
+        - content
       properties:
-        id:
+        userId:
           type: string
         title:
           type: string
         content:
           type: string
-    APIError:
+        categories:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+    BlogRes:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        categories:
+          type: array
+          items:
+            type: string
+        tags:
+          type: array
+          items:
+            type: string
+        comments:
+          type: array
+          items:
+            type: CommentResponse
+
+    # Comment entity
+    CommentRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        content:
+          type: string
+
+    CommentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        blogId:
+          type: string
+        content:
+          type: string
+
+    ErrorResponse:
       type: object
       properties:
         code:
@@ -147,10 +204,3 @@ components:
         message:
           type: string
 
-  responses:
-    HttpErrorResponse:
-      description: The request has failed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/APIError'
