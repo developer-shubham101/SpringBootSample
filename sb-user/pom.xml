@@ -36,6 +36,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--   AOP     -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!-- END of AOP     -->
+
         <!-- Spring Boot starter for MongoDB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
