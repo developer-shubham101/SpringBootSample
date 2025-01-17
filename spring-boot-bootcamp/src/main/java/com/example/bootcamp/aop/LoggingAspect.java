@@ -1,12 +1,22 @@
 package com.example.bootcamp.aop;
 
+import com.example.bootcamp.entity.ExceptionLog;
+import com.example.bootcamp.repository.ExceptionLogRepository;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import lombok.AllArgsConstructor;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@AllArgsConstructor
 public class LoggingAspect {
+
+  private final ExceptionLogRepository exceptionLogRepository;
 
   @Around("execution(* com.example.bootcamp.controller.*.*(..))") // Pointcut expression
   public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -31,8 +41,16 @@ public class LoggingAspect {
     System.out.println("After method execution");
   }
 
-  @AfterThrowing("execution(* com.example.bootcamp.service.UserService.*(..))")
-  public void logAfterThrowing() {
-    System.out.println("Exception thrown by the method");
+  @AfterThrowing(pointcut = "execution(* com.example.bootcamp..*(..))", throwing = "exception")
+  public void logException(JoinPoint joinPoint, Throwable exception) {
+    exception.printStackTrace();
+    ExceptionLog log = new ExceptionLog();
+    log.setExceptionMessage(exception.getMessage());
+    log.setStackTrace(Arrays.toString(exception.getStackTrace()));
+    log.setMethodName(joinPoint.getSignature().getName());
+    log.setClassName(joinPoint.getSignature().getDeclaringTypeName());
+    log.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+
+    exceptionLogRepository.save(log);
   }
 }

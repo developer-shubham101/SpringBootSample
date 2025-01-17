@@ -12,12 +12,12 @@ spring:
           uri: lb://SB-USER
           predicates:
             - Path=/users/**
-          filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 5 # Number of tokens added per second
-                redis-rate-limiter.burstCapacity: 10 # Max tokens in the bucket
-                key-resolver: {@ipKeyResolver} # Use IP address for rate limiting
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 5 # Number of tokens added per second
+#                redis-rate-limiter.burstCapacity: 10 # Max tokens in the bucket
+#                key-resolver: {@ipKeyResolver} # Use IP address for rate limiting
 
         - id: SB-BLOG-BUSINESS
           uri: lb://SB-BLOG-BUSINESS
