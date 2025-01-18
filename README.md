@@ -10,7 +10,7 @@ The repository is structured to provide a solid foundation for learning and impl
 
 ## Repository Overview
 
-### Primary Repository: **spring-boot-bootcamp**
+### Standalone Repository: **spring-boot-bootcamp**
 - A self-contained project covering all the essential topics to get started with Spring Boot.
 - Includes features such as:
   - JWT Authentication
@@ -19,7 +19,7 @@ The repository is structured to provide a solid foundation for learning and impl
 
 This is ideal for developers looking to learn the foundational concepts of Spring Boot.
 
-### Additional Repositories (Microservices Architecture)
+### Microservices Repositories (Microservices Architecture)
 
 The following repositories demonstrate the breakdown of a single large application into independent microservices:
 

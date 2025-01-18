@@ -10,7 +10,7 @@ ARG JAR_FILE=target/*.jar
 ADD ${JAR_FILE} app.jar
 
 # Expose the port your Spring Boot app runs on
-EXPOSE 7075
+EXPOSE 8761
 
 # Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
