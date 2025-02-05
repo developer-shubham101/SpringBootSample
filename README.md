@@ -23,7 +23,7 @@ This is ideal for developers looking to learn the foundational concepts of Sprin
 
 The following repositories demonstrate the breakdown of a single large application into independent microservices:
 
-- **ApiGateway**: Acts as the entry point for all incoming requests. Manages routing and API gateway functionalities.
+- **api-gateway**: Acts as the entry point for all incoming requests. Manages routing and API gateway functionalities.
 - **sb-blog-business**: Handles core business logic and operations related to blogs.
 - **sb-blog-comments**: Manages all operations related to blog comments.
 - **sb-blog-info**: Provides additional metadata and information for blogs.
