@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 // @EnableEurekaClient
-public class SbUserProjectApplication {
+public class SBBootCampApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SbUserProjectApplication.class, args);
+    SpringApplication.run(SBBootCampApplication.class, args);
   }
 }
