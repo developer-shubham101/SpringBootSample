@@ -41,7 +41,7 @@ public class LoggingAspect {
     System.out.println("After method execution");
   }
 
-  @AfterThrowing(pointcut = "execution(* com.example.bootcamp..*(..))", throwing = "exception")
+  /*@AfterThrowing(pointcut = "execution(* com.example.bootcamp..*(..))", throwing = "exception")
   public void logException(JoinPoint joinPoint, Throwable exception) {
     exception.printStackTrace();
     ExceptionLog log = new ExceptionLog();
@@ -52,5 +52,5 @@ public class LoggingAspect {
     log.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
 
     exceptionLogRepository.save(log);
-  }
+  }*/
 }
