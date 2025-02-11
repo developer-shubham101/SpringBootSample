@@ -10,11 +10,13 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UserUseCase {
@@ -25,13 +27,13 @@ public class UserUseCase {
   @PostConstruct
   public void init() {
     // Initialization logic here, e.g., open a file or validate configurations
-    System.out.println("Bean has been initialized!");
+    log.info("Bean has been initialized!");
   }
 
   @PreDestroy
   public void cleanup() {
     // Cleanup logic here, e.g., close a connection or release resources
-    System.out.println("Bean is about to be destroyed!");
+    log.info("Bean is about to be destroyed!");
   }
 
   public List<UserReq> getUsers() {

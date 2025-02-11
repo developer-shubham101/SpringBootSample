@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +35,7 @@ public class UserService {
   private final MongoTemplate template;
   private final UserMapper userMapper; // @RequiredArgsConstructor will create constructor
   private static final QueryConversionPipeline pipeline = QueryConversionPipeline.defaultPipeline();
-
-  @Autowired private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   public Page<UserReq> searchUser(
       Integer size, Integer page, String sortDir, String query, String sortBy) {
