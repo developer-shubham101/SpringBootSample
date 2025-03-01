@@ -1,0 +1,77 @@
+# Spring Boot Documentation
+
+## 1. [Spring Boot Fundamentals](./Spring%20Boot%20Fundamentals/)
+- [1.1 Spring Boot Fundamentals - Introduction to Spring and Spring Boot](./Spring%20Boot%20Fundamentals/1.1%20Spring%20Boot%20Fundamentals%20-%20Introduction%20to%20Spring%20and%20Spring%20Boot.md)
+- [1.3 Spring Boot Fundamentals - Understanding Dependency Injection](./Spring%20Boot%20Fundamentals/1.3%20Spring%20Boot%20Fundamentals%20-%20Understanding%20Dependency%20Injection.md)
+- [1.5 Spring Boot Fundamentals - Understanding Spring Boot Profiles](./Spring%20Boot%20Fundamentals/1.5%20Spring%20Boot%20Fundamentals%20-%20Understanding%20Spring%20Boot%20Profiles.md)
+- [1.6 Spring Boot Fundamentals - Understanding Bean Lifecycle](./Spring%20Boot%20Fundamentals/1.6%20Spring%20Boot%20Fundamentals%20-%20Understanding%20Bean%20Lifecycle.md)
+
+## 2. [Spring Boot Annotations](./Spring%20Boot%20Annotations/)
+- [2.1 Spring Boot Annotations - Overview of Annotations in Spring Boot](./Spring%20Boot%20Annotations/2.1%20Spring%20Boot%20Annotations%20-%20Overview%20of%20Annotations%20in%20Spring%20Boot.md)
+- [2.2 Spring Boot Annotations - Understanding Component Annotation](./Spring%20Boot%20Annotations/2.2%20Spring%20Boot%20Annotations%20-%20Understanding%20Component%20Annotation.md)
+- [2.3 Spring Boot Annotations - Understanding Repository Annotation](./Spring%20Boot%20Annotations/2.3%20Spring%20Boot%20Annotations%20-%20Understanding%20Repository%20Annotation.md)
+- [2.4 Spring Boot Annotations - Understanding Service Annotation](./Spring%20Boot%20Annotations/2.4%20Spring%20Boot%20Annotations%20-%20Understanding%20Service%20Annotation.md)
+- [2.6 Spring Boot Annotations - Differences Between Component Service Repository and Controller](./Spring%20Boot%20Annotations/2.6%20Spring%20Boot%20Annotations%20-%20Differences%20Between%20Component%20Service%20Repository%20and%20Controller.md)
+- [2.7 Spring Boot Annotations - Differences Between RestController and Controller](./Spring%20Boot%20Annotations/2.7%20Spring%20Boot%20Annotations%20-%20Differences%20Between%20RestController%20and%20Controller.md)
+- [2.8 Spring Boot Annotations - Spring PostConstruct and PreDestroy Annotations](./Spring%20Boot%20Annotations/2.8%20Spring%20Boot%20Annotations%20-%20Spring%20PostConstruct%20and%20PreDestroy%20Annotations.md)
+
+## 3. [Spring Boot REST API](./Spring%20Boot%20REST%20API/)
+- [3.1 Spring Boot REST API - Creating a REST API with Spring Boot](./Spring%20Boot%20REST%20API/3.1%20Spring%20Boot%20REST%20API%20-%20Creating%20a%20REST%20API%20with%20Spring%20Boot.md)
+- [3.3 Spring Boot REST API - Handling Multiple Requests in Spring Boot](./Spring%20Boot%20REST%20API/3.3%20Spring%20Boot%20REST%20API%20-%20Handling%20Multiple%20Requests%20in%20Spring%20Boot.md)
+- [3.4 Spring Boot REST API - Handling Global Exceptions in Spring Boot](./Spring%20Boot%20REST%20API/3.4%20Spring%20Boot%20REST%20API%20-%20Handling%20Global%20Exceptions%20in%20Spring%20Boot.md)
+- [3.6 Spring Boot REST API - Building a REST Query Engine](./Spring%20Boot%20REST%20API/3.6%20Spring%20Boot%20REST%20API%20-%20Building%20a%20REST%20Query%20Engine.md)
+- [3.7 Spring Boot REST API - Creating Custom Email Validation in Spring Boot](./Spring%20Boot%20REST%20API/3.7%20Spring%20Boot%20REST%20API%20-%20Creating%20Custom%20Email%20Validation%20in%20Spring%20Boot.md)
+- [3.7 Spring Boot REST API - Documenting APIs with Swagger](./Spring%20Boot%20REST%20API/3.7%20Spring%20Boot%20REST%20API%20-%20Documenting%20APIs%20with%20Swagger.md)
+- [3.8 Spring Boot REST API - Best Practices for REST APIs in Spring Boot](./Spring%20Boot%20REST%20API/3.8%20Spring%20Boot%20REST%20API%20-%20Best%20Practices%20for%20REST%20APIs%20in%20Spring%20Boot.md)
+- [3.9 Spring Boot REST API - Understanding Idempotency in REST APIs](./Spring%20Boot%20REST%20API/3.9%20Spring%20Boot%20REST%20API%20-%20Understanding%20Idempotency%20in%20REST%20APIs.md)
+
+## 4. [Spring Boot Security](./Spring%20Boot%20Security/)
+- [4.1 Spring Boot Security - JWT Authentication and Authorization](./Spring%20Boot%20Security/4.1%20Spring%20Boot%20Security%20-%20JWT%20Authentication%20and%20Authorization.md)
+- [4.2 Spring Boot Security - Understanding JWT Tokens](./Spring%20Boot%20Security/4.2%20Spring%20Boot%20Security%20-%20Understanding%20JWT%20Tokens.md)
+- [4.3 Spring Boot Security - JWT Signature and Validation Explained](./Spring%20Boot%20Security/4.3%20Spring%20Boot%20Security%20-%20JWT%20Signature%20and%20Validation%20Explained.md)
+- [4.4 Spring Boot Security - Where to Validate User Roles in Spring Security](./Spring%20Boot%20Security/4.4%20Spring%20Boot%20Security%20-%20Where%20to%20Validate%20User%20Roles%20in%20Spring%20Security.md)
+- [4.5 Spring Boot Security - What is Cross Site Request Forgery CSRF](./Spring%20Boot%20Security/4.5%20Spring%20Boot%20Security%20-%20What%20is%20Cross%20Site%20Request%20Forgery%20CSRF.md)
+
+## 5. [Spring Boot Microservices](./Spring%20Boot%20Microservices/)
+- [5.1 Spring Boot Microservices - Service Discovery Pattern](./Spring%20Boot%20Microservices/5.1%20Spring%20Boot%20Microservices%20-%20Service%20Discovery%20Pattern.md)
+- [5.2 Spring Boot Microservices - API Gateway Pattern](./Spring%20Boot%20Microservices/5.2%20Spring%20Boot%20Microservices%20-%20API%20Gateway%20Pattern.md)
+- [5.3 Spring Boot Microservices - Rate Limiting in Microservices](./Spring%20Boot%20Microservices/5.3%20Spring%20Boot%20Microservices%20-%20Rate%20Limiting%20in%20Microservices.md)
+- [5.4 Spring Boot Microservices - Database per Service Pattern](./Spring%20Boot%20Microservices/5.4%20Spring%20Boot%20Microservices%20-%20Database%20per%20Service%20Pattern.md)
+- [5.5 Spring Boot Microservices - Circuit Breaker Pattern](./Spring%20Boot%20Microservices/5.5%20Spring%20Boot%20Microservices%20-%20Circuit%20Breaker%20Pattern.md)
+- [5.6 Spring Boot Microservices - Event Sourcing Pattern](./Spring%20Boot%20Microservices/5.6%20Spring%20Boot%20Microservices%20-%20Event%20Sourcing%20Pattern.md)
+- [5.7 Spring Boot Microservices - Overview of Microservice Architecture and Patterns](./Spring%20Boot%20Microservices/5.7%20Spring%20Boot%20Microservices%20-%20Overview%20of%20Microservice%20Architecture%20and%20Patterns.md)
+
+## 6. [Spring Boot Docker](./Spring%20Boot%20Docker/)
+- [6.1 Spring Boot Docker - Deploying Spring Boot on Docker](./Spring%20Boot%20Docker/6.1%20Spring%20Boot%20Docker%20-%20Deploying%20Spring%20Boot%20on%20Docker.md)
+- [6.2 Spring Boot Docker - Docker Compose vs Dockerfile Key Differences](./Spring%20Boot%20Docker/6.2%20Spring%20Boot%20Docker%20-%20Docker%20Compose%20vs%20Dockerfile%20Key%20Differences.md)
+- [6.3 Spring Boot Docker - Understanding Dockerfile for Spring Boot](./Spring%20Boot%20Docker/6.3%20Spring%20Boot%20Docker%20-%20Understanding%20Dockerfile%20for%20Spring%20Boot.md)
+- [6.4 Spring Boot Docker - Using MongoDB with Spring Boot in Docker](./Spring%20Boot%20Docker/6.4%20Spring%20Boot%20Docker%20-%20Using%20MongoDB%20with%20Spring%20Boot%20in%20Docker.md)
+
+## 7. [Spring Boot Advanced](./Spring%20Boot%20Advanced/)
+- [7.1 Spring Boot Advanced - Aspect Oriented Programming AOP in Spring Boot](./Spring%20Boot%20Advanced/7.1%20Spring%20Boot%20Advanced%20-%20Aspect%20Oriented%20Programming%20AOP%20in%20Spring%20Boot.md)
+- [7.2 Spring Boot Advanced - Actuator Confirmations Explained](./Spring%20Boot%20Advanced/7.2%20Spring%20Boot%20Advanced%20-%20Actuator%20Confirmations%20Explained.md)
+- [7.3 Spring Boot Advanced - Handling Multiple Beans of the Same Type](./Spring%20Boot%20Advanced/7.3%20Spring%20Boot%20Advanced%20-%20Handling%20Multiple%20Beans%20of%20the%20Same%20Type.md)
+- [7.4 Spring Boot Advanced - Spring Boot Caching Mechanism Explained](./Spring%20Boot%20Advanced/7.4%20Spring%20Boot%20Advanced%20-%20Spring%20Boot%20Caching%20Mechanism%20Explained.md)
+- [7.5 Spring Boot Advanced - Scheduling Tasks in Spring Boot](./Spring%20Boot%20Advanced/7.5%20Spring%20Boot%20Advanced%20-%20Scheduling%20Tasks%20in%20Spring%20Boot.md)
+- [7.6 Spring Boot Advanced - Understanding Spring Boot Actuator and Profiles](./Spring%20Boot%20Advanced/7.6%20Spring%20Boot%20Advanced%20-%20Understanding%20Spring%20Boot%20Actuator%20and%20Profiles.md)
+- [7.7 Spring Boot Advanced - Understanding Spring Boot Autoconfiguration and Overriding](./Spring%20Boot%20Advanced/7.7%20Spring%20Boot%20Advanced%20-%20Understanding%20Spring%20Boot%20Autoconfiguration%20and%20Overriding.md)
+- [7.8 Spring Boot Advanced - Introduction to org mapstruct and Its Usage](./Spring%20Boot%20Advanced/7.8%20Spring%20Boot%20Advanced%20-%20Introduction%20to%20org%20mapstruct%20and%20Its%20Usage.md)
+- [7.9 Spring Boot Advanced - Spring Boot Lifecycle Explained](./Spring%20Boot%20Advanced/7.9%20Spring%20Boot%20Advanced%20-%20Spring%20Boot%20Lifecycle%20Explained.md)
+
+## 8. [Spring Boot Hibernate](./Spring%20Boot%20Hibernate/)
+- [8.1 Spring Boot Hibernate - Hibernate Lifecycle Explained](./Spring%20Boot%20Hibernate/8.1%20Spring%20Boot%20Hibernate%20-%20Hibernate%20Lifecycle%20Explained.md)
+- [8.2 Spring Boot Hibernate - JPA vs Hibernate Key Differences](./Spring%20Boot%20Hibernate/8.2%20Spring%20Boot%20Hibernate%20-%20JPA%20vs%20Hibernate%20Key%20Differences.md)
+- [8.3 Spring Boot Hibernate - Introduction to Hibernate](./Spring%20Boot%20Hibernate/8.3%20Spring%20Boot%20Hibernate%20-%20Introduction%20to%20Hibernate.md)
+- [8.4 Spring Boot Hibernate - Understanding Object Relational Mapping ORM](./Spring%20Boot%20Hibernate/8.4%20Spring%20Boot%20Hibernate%20-%20Understanding%20Object%20Relational%20Mapping%20ORM.md)
+
+## 9. [Spring Boot Misc](./Spring%20Boot%20Misc/)
+- [9.1 Spring Boot Misc - Basic Layers in Spring Boot Architecture](./Spring%20Boot%20Misc/9.1%20Spring%20Boot%20Misc%20-%20Basic%20Layers%20in%20Spring%20Boot%20Architecture.md)
+- [9.2 Spring Boot Misc - Introduction to Lombok in Spring Boot](./Spring%20Boot%20Misc/9.2%20Spring%20Boot%20Misc%20-%20Introduction%20to%20Lombok%20in%20Spring%20Boot.md)
+- [9.4 Spring Boot Misc - What is a Servlet Container](./Spring%20Boot%20Misc/9.4%20Spring%20Boot%20Misc%20-%20What%20is%20a%20Servlet%20Container.md)
+
+## Big O Notation
+- [List of Notations](./Big%20O%20Notation/List%20of%20Notations.md)
+
+## Preparing
+- [1](./preparing/1.md)
+- [2](./preparing/2.md)

@@ -48,7 +48,7 @@ Together, these microservices demonstrate a complete and scalable architecture s
 Detailed documentation is available for your reference. It provides step-by-step instructions, code explanations, and use-case scenarios.
 
 You can access the documentation through the following links:
-- [Documentation on GitHub](https://github.com/developer-shubham101/SpringBootSample/tree/main/spring-boot-bootcamp/readme)
+- [Documentation on GitHub](https://github.com/developer-shubham101/SpringBootSample/tree/main/spring-boot-bootcamp/docs/docs.md)
 - [Documentation on NewDevPoint](https://newdevpoint.in/spring-boot/)
 
 ---

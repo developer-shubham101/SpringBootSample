@@ -1,12 +1,7 @@
 package com.example.bootcamp.aop;
 
-import com.example.bootcamp.entity.ExceptionLog;
 import com.example.bootcamp.repository.ExceptionLogRepository;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import lombok.AllArgsConstructor;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
