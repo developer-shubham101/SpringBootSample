@@ -42,8 +42,8 @@ public class BlogService {
                 });
     }
 
-    public Mono<boolean> deleteBlog(String id) {
-        blogRepository.findById(id).flatMap(blogRepository::delete
+    public Mono<Boolean> deleteBlog(String id) {
+        return blogRepository.findById(id).flatMap(blogRepository::delete
                 ).then(Mono.just(true)).switchIfEmpty(Mono.just(false));
     }
 }
