@@ -29,47 +29,15 @@ public class EpisodeController {
     private final Tracer tracer;  // from micrometer
     private final Logger logger = LoggerFactory.getLogger(EpisodeController.class);
 
-   /* @GetMapping
-    public Mono<ResponseEntity<List<CustomEpisode>>> getEpisodes() {
-        // Manually create and start a span
-        Span newSpan = tracer.nextSpan().name("fetch-episodes").start();
-        try (Tracer.SpanInScope ws = tracer.withSpan(newSpan)) {
-
-            return webClient.get()
-                    .uri("https://apissa.sampleapis.com/futurama/episodexxs") // Intentionally faulty for error testing
-                    .retrieve()
-                    .bodyToFlux(EpisodeResponse.class)
-                    .map(ep -> new CustomEpisode(ep.title, ep.writers, ep.originalAirDate, ep.desc, ep.id))
-                    .collectList()
-                    .map(ResponseEntity::ok)
-                    .doOnSuccess(res -> {
-                        newSpan.tag("episodes.success", "true");
-                        newSpan.event("Successfully fetched episodes");
-                        newSpan.end();
-                    })
-                    .doOnError(e -> {
-                        newSpan.tag("episodes.success", "false");
-                        newSpan.error(e);
-                        newSpan.end();
-                    })
-                    .onErrorResume(e -> {
-                        String traceId = newSpan.context().traceId();
-
-//                        logger.error("Error fetching episodes. Trace ID: {}", traceId, e);
-
-                        CustomEpisode errorEpisode = new CustomEpisode(
-                                "Error occurred", "", "", "Trace ID: " + traceId + ", error: " + e.getMessage(), -1
-                        );
-                        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .body(Collections.singletonList(errorEpisode)));
-                    });
-
-        } catch (Exception e) {
-            newSpan.error(e);
-            newSpan.end();
-            throw e;
-        }
-    }*/
+   /**
+     * Handles HTTP GET requests to retrieve a list of Futurama episodes from an external API, propagating the current trace ID for distributed tracing.
+     *
+     * If the external API call succeeds, returns a list of episodes wrapped in a 200 OK response. If an error occurs, returns a 500 response containing a single episode entry describing the error and including the trace ID for troubleshooting.
+     *
+     * The trace ID is propagated via Reactor's context and included in error responses and logs for observability.
+     *
+     * @return a reactive Mono emitting a ResponseEntity containing either the list of episodes or an error description with trace information
+     */
 
     @GetMapping
     public Mono<ResponseEntity<List<CustomEpisode>>> getEpisodes() {
@@ -105,6 +73,14 @@ public class EpisodeController {
     }
 
 
+    /**
+     * Performs a GET request to an external API and returns a response containing the current trace ID.
+     *
+     * The trace ID from the current span is propagated through Reactor's context and included in the response.
+     * On error, returns a 500 response with the error message and trace ID.
+     *
+     * @return a Mono emitting a ResponseEntity with a success or error message including the trace ID
+     */
     public Mono<ResponseEntity<String>> callApiWithTrace(WebClient webClient, Tracer tracer) {
         String traceId = tracer.currentSpan() != null
                 ? tracer.currentSpan().context().traceId()
