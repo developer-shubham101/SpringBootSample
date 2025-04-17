@@ -23,7 +23,9 @@ public class BlogService {
     }
 
     public Mono<Blog> getBlogById(String id) {
-        return blogRepository.findById(id);
+        return blogRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Blog with id " + id + " not found")));
     }
 
     public Flux<Blog> getBlogsByAuthor(String author) {
@@ -44,6 +46,6 @@ public class BlogService {
 
     public Mono<Boolean> deleteBlog(String id) {
         return blogRepository.findById(id).flatMap(blogRepository::delete
-                ).then(Mono.just(true)).switchIfEmpty(Mono.just(false));
+        ).then(Mono.just(true)).switchIfEmpty(Mono.just(false));
     }
 }
