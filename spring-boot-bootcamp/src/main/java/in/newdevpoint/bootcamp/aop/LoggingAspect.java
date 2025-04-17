@@ -13,6 +13,13 @@ public class LoggingAspect {
 
   private final ExceptionLogRepository exceptionLogRepository;
 
+  /**
+   * Measures and logs the execution time of controller methods in the specified package.
+   *
+   * @param joinPoint the join point representing the intercepted method
+   * @return the result of the intercepted method execution
+   * @throws Throwable if the intercepted method throws any exception
+   */
   @Around("execution(* in.newdevpoint.bootcamp.controller.*.*(..))") // Pointcut expression
   public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
     long startTime = System.currentTimeMillis();
@@ -26,11 +33,17 @@ public class LoggingAspect {
     return proceed;
   }
 
+  /****
+   * Logs a message before any method execution in the UserService class.
+   */
   @Before("execution(* in.newdevpoint.bootcamp.service.UserService.*(..))") // Pointcut expression
   public void logBeforeMethod() {
     System.out.println("Before method execution");
   }
 
+  /**
+   * Logs a message after the execution of any method in the UserService class.
+   */
   @After("execution(* in.newdevpoint.bootcamp.service.UserService.*(..))")
   public void logAfterMethod() {
     System.out.println("After method execution");
