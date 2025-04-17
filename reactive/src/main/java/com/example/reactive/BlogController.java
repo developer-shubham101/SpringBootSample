@@ -42,12 +42,20 @@ public class BlogController {
     }
 
     @PutMapping("/{id}")
-    public Mono<Blog> updateBlog(@PathVariable String id, @RequestBody Blog blog) {
-        return blogService.updateBlog(id, blog);
+    public Mono<ResponseEntity<Blog>> updateBlog(@PathVariable String id, @RequestBody Blog blog) {
+        return blogService.updateBlog(id, blog)
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
     @DeleteMapping("/{id}")
-    public Mono<Void> deleteBlog(@PathVariable String id) {
-        return blogService.deleteBlog(id);
+    public Mono<ResponseEntity<Void>> deleteBlog(@PathVariable String id) {
+        return blogService.deleteBlog(id).flatMap(response -> {
+            if (response) {
+                return Mono.just(ResponseEntity.noContent().build());
+            } else {
+                return Mono.just(ResponseEntity.notFound().build());
+            }
+        });
     }
 }

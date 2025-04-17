@@ -42,7 +42,8 @@ public class BlogService {
                 });
     }
 
-    public Mono<Void> deleteBlog(String id) {
-        return blogRepository.deleteById(id);
+    public Mono<boolean> deleteBlog(String id) {
+        blogRepository.findById(id).flatMap(blogRepository::delete
+                ).then(Mono.just(true)).switchIfEmpty(Mono.just(false));
     }
 }
