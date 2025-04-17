@@ -13,6 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TracingConfig {
 
+    /**
+     * Creates and configures a Tracer bean for distributed tracing using OpenTelemetry with span data exported to logs.
+     *
+     * @return a Tracer instance set up with a logging span exporter and current trace context management
+     */
     @Bean
     public Tracer tracer() {
         SdkTracerProvider sdkTracerProvider = SdkTracerProvider.builder()
