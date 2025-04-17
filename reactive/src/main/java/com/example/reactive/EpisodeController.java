@@ -3,7 +3,6 @@ package com.example.reactive;
 
 import com.example.reactive.sample.CustomEpisode;
 import com.example.reactive.sample.EpisodeResponse;
-import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -74,7 +73,7 @@ public class EpisodeController {
     @GetMapping
     public Mono<ResponseEntity<List<CustomEpisode>>> getEpisodes() {
 
-         String traceId = tracer.currentSpan() != null
+        String traceId = tracer.currentSpan() != null
                 ? tracer.currentSpan().context().traceId()
                 : "N/A";
 
@@ -82,16 +81,16 @@ public class EpisodeController {
                 .uri("https://apissa.sampleapis.com/futurama/episodexxs") // sample typo in URL to trigger error
                 .retrieve()
                 .bodyToFlux(EpisodeResponse.class)
-                 .contextWrite(Context.of("traceId", traceId))
-                .map(ep -> new CustomEpisode(ep.title, ep.writers, ep.originalAirDate, ep.desc, ep.id))
+                .contextWrite(Context.of("traceId", traceId))
+                .map(ep -> new CustomEpisode(ep.getTitle(), ep.getWriters(), ep.getOriginalAirDate(), ep.getDesc(), ep.getId()))
                 .collectList()
                 .map(ResponseEntity::ok)
                 .onErrorResume(e ->
                         Mono.deferContextual(ctx -> {
-                             String ctxTraceId = ctx.getOrDefault("traceId", "N/A");
-                             logger.info("TraceId inside context: {}", ctxTraceId);
+                            String ctxTraceId = ctx.getOrDefault("traceId", "N/A");
+                            logger.info("TraceId inside context: {}", ctxTraceId);
 
-                            logger.error("Error fetching episodes. Trace ID: {}", traceId, e);
+                            logger.error("Error fetching episodes. Trace ID: {}", ctxTraceId, e);
 
                             CustomEpisode errorEpisode = new CustomEpisode(
                                     "Error occurred", "", "", "Trace ID: " + traceId + ", error: " + e.getMessage(), -1

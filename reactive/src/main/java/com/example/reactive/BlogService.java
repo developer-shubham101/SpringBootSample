@@ -1,6 +1,8 @@
 package com.example.reactive;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,6 +32,8 @@ public class BlogService {
 
     public Mono<Blog> updateBlog(String id, Blog blog) {
         return blogRepository.findById(id)
+                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Blog with id " + id + " not found")))
                 .flatMap(existingBlog -> {
                     existingBlog.setTitle(blog.getTitle());
                     existingBlog.setContent(blog.getContent());

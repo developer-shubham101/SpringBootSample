@@ -1,8 +1,11 @@
 package com.example.reactive;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/blogs")
@@ -14,8 +17,11 @@ public class BlogController {
     }
 
     @PostMapping
-    public Mono<Blog> createBlog(@RequestBody Blog blog) {
-        return blogService.createBlog(blog);
+    public Mono<ResponseEntity<Blog>> createBlog(@RequestBody Blog blog) {
+        return blogService.createBlog(blog)
+                .map(saved -> ResponseEntity
+                        .created(URI.create("/blogs/" + saved.getId()))
+                        .body(saved));
     }
 
     @GetMapping
@@ -24,8 +30,10 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Blog> getBlogById(@PathVariable String id) {
-        return blogService.getBlogById(id);
+    public Mono<ResponseEntity<Blog>> getBlogById(@PathVariable String id) {
+        return blogService.getBlogById(id)
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
     @GetMapping("/author/{author}")

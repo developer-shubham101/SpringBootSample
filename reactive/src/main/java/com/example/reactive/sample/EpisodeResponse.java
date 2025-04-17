@@ -1,9 +1,12 @@
 package com.example.reactive.sample;
 
+import lombok.Data;
+
+@Data
 public class EpisodeResponse {
-    public String title;
-    public String writers;
-    public String originalAirDate;
-    public String desc;
-    public int id;
+    private String title;
+    private String writers;
+    private String originalAirDate;
+    private String desc;
+    private int id;
 }
