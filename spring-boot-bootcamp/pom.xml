@@ -8,7 +8,7 @@
         <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>in.newdevpoint</groupId>
     <artifactId>spring-boot-bootcamp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-bootcamp</name>
@@ -197,9 +197,9 @@
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
-                            <packageName>com.example.bootcamp</packageName>
-                            <apiPackage>com.example.bootcamp.api</apiPackage>
-                            <modelPackage>com.example.bootcamp.dto</modelPackage>
+                            <packageName>in.newdevpoint.bootcamp</packageName>
+                            <apiPackage>in.newdevpoint.bootcamp.api</apiPackage>
+                            <modelPackage>in.newdevpoint.bootcamp.dto</modelPackage>
                         </configuration>
                     </execution>
                 </executions>
