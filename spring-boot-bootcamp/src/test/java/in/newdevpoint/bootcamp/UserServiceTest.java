@@ -81,7 +81,8 @@ public class UserServiceTest {
   void testUpdateUser_UserExists() {
     UserEntity existingUser = new UserEntity("John Doe", "john@example.com", "password");
     existingUser.setId(userId);
-    UserEntity updatedUser = new UserEntity("John Updated", "john.updated@example.com", "newpassword");
+    UserEntity updatedUser =
+        new UserEntity("John Updated", "john.updated@example.com", "newpassword");
     updatedUser.setId(userId);
 
     when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
@@ -96,7 +97,8 @@ public class UserServiceTest {
 
   @Test
   void testUpdateUser_UserNotFound() {
-    UserEntity updatedUser = new UserEntity("John Updated", "john.updated@example.com", "newpassword");
+    UserEntity updatedUser =
+        new UserEntity("John Updated", "john.updated@example.com", "newpassword");
 
     when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
