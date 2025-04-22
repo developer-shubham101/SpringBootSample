@@ -7,14 +7,13 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfig {
 
-    /**
-     * Creates and provides a new {@link RestTemplate} bean for performing HTTP requests.
-     *
-     * @return a new instance of RestTemplate
-     */
-
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
-    }
+  /**
+   * Creates and provides a new {@link RestTemplate} bean for performing HTTP requests.
+   *
+   * @return a new instance of RestTemplate
+   */
+  @Bean
+  public RestTemplate getRestTemplate() {
+    return new RestTemplate();
+  }
 }
