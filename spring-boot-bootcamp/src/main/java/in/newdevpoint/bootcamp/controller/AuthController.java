@@ -13,6 +13,7 @@ import in.newdevpoint.bootcamp.security.jwt.JwtUtils;
 import in.newdevpoint.bootcamp.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,7 +69,7 @@ public class AuthController {
                         jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
-    @GetMapping("/createRoleList")
+    @PostMapping("/createRoleList")
     public ResponseEntity<?> createRoleList() {
         List<Role> roleList = Arrays.stream(ERole.values()).map(Role::new).collect(Collectors.toList());
 
@@ -76,7 +77,9 @@ public class AuthController {
             roleRepository.save(role);
         }
 
-        return ResponseEntity.ok(new MessageResponse("Done"));
+         return ResponseEntity
+          .status(HttpStatus.CREATED)
+            .body(new MessageResponse("Roles created successfully"));
     }
 
     @PostMapping("/signup")

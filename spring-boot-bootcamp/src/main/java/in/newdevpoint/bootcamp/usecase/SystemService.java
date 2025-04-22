@@ -58,7 +58,6 @@ public class SystemService {
             return Utility.getTemplateString(classPathResource);
         } catch (IOException e) {
             logger.error("Exception occurred while reading file", e);
-            e.printStackTrace();
         }
         return "File not found";
     }
