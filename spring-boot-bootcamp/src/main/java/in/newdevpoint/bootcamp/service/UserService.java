@@ -83,15 +83,24 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    public UserEntity updateUser(String id, UserEntity updatedUserEntity) {
-        UserEntity existingUserEntity = userRepository.findById(id).orElse(null);
-        if (existingUserEntity != null) {
-            existingUserEntity.setUsername(updatedUserEntity.getUsername());
-            existingUserEntity.setEmail(updatedUserEntity.getEmail());
-            return userRepository.save(existingUserEntity);
-        }
-        return null; // User not found
-    }
+public UserEntity updateUser(String id, UserEntity updatedUserEntity) {
+    return userRepository.findById(id)
+            .map(existingUser -> {
+                // Update all relevant fields only if provided
+                if (StringUtils.isNotBlank(updatedUserEntity.getUsername())) {
+                    existingUser.setUsername(updatedUserEntity.getUsername());
+                }
+                if (StringUtils.isNotBlank(updatedUserEntity.getEmail())) {
+                    existingUser.setEmail(updatedUserEntity.getEmail());
+                }
+                // Add other fields as needed, e.g.:
+                // if (StringUtils.isNotBlank(updatedUserEntity.getPhone())) {
+                //     existingUser.setPhone(updatedUserEntity.getPhone());
+                // }
+                return userRepository.save(existingUser);
+            })
+            .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
+}
 
     public void deleteUser(String id) {
         userRepository.deleteById(id);
