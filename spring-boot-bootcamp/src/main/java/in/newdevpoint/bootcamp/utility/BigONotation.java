@@ -1,30 +1,34 @@
 package in.newdevpoint.bootcamp.utility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BigONotation {
 
+  private static final Logger logger = LoggerFactory.getLogger(BigONotation.class);
+
   public void constantTime(int[] array) {
-    System.out.println(array[0]); // Accessing an element by index is O(1)
+    logger.info(String.valueOf(array[0])); // Accessing an element by index is O(1)
   }
 
   public void logarithmicTime(int n) {
     for (int i = 1; i < n; i *= 2) { // i doubles each iteration
-      System.out.println("Logarithmic time step: " + i);
+      logger.info("Logarithmic time step: {}", i);
     }
   }
 
   public void linearTime(int[] array) {
     for (int j : array) {
-      System.out.println("Linear time step for element " + j);
+      logger.info("Linear time step for element {}", j);
     }
   }
 
   public void logLinearTime(int n) {
     for (int i = 0; i < n; i++) { // Runs n times
       for (int j = 1; j < n; j *= 2) { // Inner loop runs log n times
-        System.out.println("Log-linear time step");
+        logger.info("Log-linear time step");
       }
     }
   }
@@ -32,7 +36,7 @@ public class BigONotation {
   public void quadraticTime(int n) {
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n; j++) {
-        System.out.println("Quadratic time step");
+        logger.info("Quadratic time step");
       }
     }
   }
@@ -40,7 +44,7 @@ public class BigONotation {
   public void exponentialTime(int n) {
     int limit = (int) Math.pow(2, n);
     for (int i = 0; i < limit; i++) {
-      System.out.println("Exponential time step");
+      logger.info("Exponential time step");
     }
   }
 
@@ -51,7 +55,7 @@ public class BigONotation {
 
   void permute(String prefix, String str) {
     int n = str.length();
-    if (n == 0) System.out.println("Factorial time step: " + prefix);
+    if (n == 0) logger.info("Factorial time step: " + prefix);
     else {
       for (int i = 0; i < n; i++) {
         permute(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
