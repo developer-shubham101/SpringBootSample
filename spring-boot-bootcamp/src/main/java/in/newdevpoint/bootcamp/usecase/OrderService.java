@@ -71,7 +71,7 @@ public class OrderService {
       Thread.sleep(300);
       logger.info("Order placed.");
     } catch (InterruptedException e) {
-      logger.error("Exception occurred while processing /error endpoint", e);
+      logger.error("Exception occurred while placing order", e);
       e.printStackTrace();
     }
 

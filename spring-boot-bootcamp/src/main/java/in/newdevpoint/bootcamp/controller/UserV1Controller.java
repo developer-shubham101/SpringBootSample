@@ -114,6 +114,7 @@ public class UserV1Controller implements UsersApi {
    * @return the updated user information with the new profile photo
    */
   @Override
+  @PreAuthorize(RoleConstants.USER_CRUD)
   public ResponseEntity<UserReq> updateUserProfilePhoto(MultipartFile file) {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     String username = auth.getName();

@@ -9,103 +9,136 @@ import in.newdevpoint.bootcamp.exceptions.UserNotFoundException;
 import in.newdevpoint.bootcamp.mapper.UserMapper;
 import in.newdevpoint.bootcamp.service.UserService;
 import in.newdevpoint.bootcamp.usecase.UserUseCase;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 @ExtendWith(MockitoExtension.class)
 public class UserUseCaseTest {
 
-  private final String userId = "67a3acfdf4051a6dea12e4a8";
-
   @Mock private UserService userService;
 
-  //    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class); // ✅ Using real
-  // MapStruct instance
-  @Mock private UserMapper userMapper; // ✅ Mock UserMapper
+  @Mock private UserMapper userMapper;
 
   @InjectMocks private UserUseCase userUseCase;
 
+  private UserEntity userEntity;
+  private UserReq userReq;
+
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.openMocks(this); // ✅ Ensures all mocks are initialized
+    userEntity = new UserEntity();
+    userEntity.setId("1");
+    userEntity.setUsername("testUser");
+    userEntity.setEmail("test@example.com");
+
+    userReq = new UserReq();
+    userReq.setId("1");
+    userReq.setUsername("testUser");
+    userReq.setEmail("test@example.com");
   }
 
   @Test
-  void testGetUserById_UserExists() {
-    // Arrange
-    UserEntity user = new UserEntity("John Doe", "john@example.com", "password");
-    user.setId(userId);
-    when(userService.getUserById(userId)).thenReturn(Optional.of(user));
+  void getUsers_returnsListOfUserReq() {
+    List<UserEntity> userEntities = new ArrayList<>();
+    userEntities.add(userEntity);
+    when(userService.getUsers()).thenReturn(userEntities);
+    when(userMapper.mapToResponseEntityList(userEntities)).thenReturn(List.of(userReq));
 
-    // Act
-    UserReq result = userUseCase.getUserById(userId);
+    List<UserReq> result = userUseCase.getUsers();
 
-    // Assert
     assertNotNull(result);
-    assertEquals("John Doe", result.getUsername());
+    assertEquals(1, result.size());
+    assertEquals("testUser", result.get(0).getUsername());
   }
 
   @Test
-  void testGetUserById_UserNotFound() {
-    // Arrange
-    when(userService.getUserById(userId)).thenReturn(Optional.empty());
+  void searchUser_returnsPageOfUserReq() {
+    Page<UserReq> mockPage = new PageImpl<>(List.of(userReq));
+    when(userService.searchUser(10, 0, "ASC", null, "id")).thenReturn(mockPage);
 
-    // Act & Assert
-    assertThrows(UserNotFoundException.class, () -> userUseCase.getUserById(userId));
+    Page<UserReq> result = userUseCase.searchUser(10, 0, "ASC", null, "id");
+
+    assertNotNull(result);
+    assertEquals(1, result.getContent().size());
+    assertEquals("testUser", result.getContent().get(0).getUsername());
   }
 
   @Test
-  void testDeleteUser_UserExists() {
-    // Arrange
-    UserEntity user = new UserEntity("John Doe", "john@example.com", "password");
-    user.setId(userId);
-    when(userService.getUserById(userId)).thenReturn(Optional.of(user));
-    doNothing().when(userService).deleteUser(userId);
+  void updateUser_returnsUpdatedUserReq() {
+    when(userMapper.mapFromReqToUserEntity(userReq)).thenReturn(userEntity);
+    when(userService.updateUser("1", userEntity)).thenReturn(userEntity);
+    when(userMapper.mapToResponseEntity(userEntity)).thenReturn(userReq);
 
-    // Act
+    UserReq result = userUseCase.updateUser(userReq);
+
+    assertNotNull(result);
+    assertEquals("testUser", result.getUsername());
+  }
+
+  @Test
+  void deleteUser_deletesUser() {
+    String userId = "1";
     userUseCase.deleteUser(userId);
-
-    // Assert
     verify(userService, times(1)).deleteUser(userId);
   }
 
   @Test
-  void testDeleteUser_UserNotFound() {
-    // Arrange
-    when(userService.getUserById(userId)).thenReturn(Optional.empty());
+  void getUser_returnsUserReq() {
+    when(userService.getUser("testUser")).thenReturn(Optional.of(userEntity));
+    when(userMapper.mapToResponseEntity(userEntity)).thenReturn(userReq);
 
-    // Act & Assert
-    assertThrows(UserNotFoundException.class, () -> userUseCase.deleteUser(userId));
-  }
+    UserReq result = userUseCase.getUser("testUser");
 
-  @Test
-  void testGetUserByUsername_UserExists() {
-    // Arrange
-    String username = "john_doe";
-    UserEntity user = new UserEntity(username, "john@example.com", "password");
-    when(userService.getUser(username)).thenReturn(Optional.of(user));
-
-    // Act
-    UserReq result = userUseCase.getUser(username);
-
-    // Assert
     assertNotNull(result);
-    assertEquals(username, result.getUsername());
+    assertEquals("testUser", result.getUsername());
   }
 
   @Test
-  void testGetUserByUsername_UserNotFound() {
-    // Arrange
-    String username = "unknown_user";
-    when(userService.getUser(username)).thenReturn(Optional.empty());
+  void getUser_throwsExceptionWhenUserNotFound() {
+    when(userService.getUser("nonExistentUser")).thenReturn(Optional.empty());
 
-    // Act & Assert
-    assertThrows(UserNotFoundException.class, () -> userUseCase.getUser(username));
+    assertThrows(UserNotFoundException.class, () -> userUseCase.getUser("nonExistentUser"));
+  }
+
+  @Test
+  void getUserById_returnsUserReq() {
+    when(userService.getUserById("1")).thenReturn(Optional.of(userEntity));
+    when(userMapper.mapToResponseEntity(userEntity)).thenReturn(userReq);
+
+    UserReq result = userUseCase.getUserById("1");
+
+    assertNotNull(result);
+    assertEquals("testUser", result.getUsername());
+  }
+
+  @Test
+  void getUserById_throwsExceptionWhenUserNotFound() {
+    when(userService.getUserById("nonExistentId")).thenReturn(Optional.empty());
+
+    assertThrows(UserNotFoundException.class, () -> userUseCase.getUserById("nonExistentId"));
+  }
+
+  @Test
+  void uploadUserProfile_returnsUpdatedUserReq() {
+    MultipartFile file =
+        new MockMultipartFile("file", "test.jpg", "image/jpeg", "test image content".getBytes());
+    when(userService.uploadUserProfile(file, "testUser")).thenReturn(userEntity);
+    when(userMapper.mapToResponseEntity(userEntity)).thenReturn(userReq);
+
+    UserReq result = userUseCase.uploadUserProfile(file, "testUser");
+
+    assertNotNull(result);
+    assertEquals("testUser", result.getUsername());
   }
 }

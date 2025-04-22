@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserUseCase {
 
   private final UserMapper userMapper; // @RequiredArgsConstructor will create constructor
-  @Autowired private UserService userService;
+  // injected via @RequiredArgsConstructor alternative way @Autowired private UserService
+  // userService;
 
+  private final UserService userService;
   /**
    * Invoked after the bean's properties have been initialized.
    *
