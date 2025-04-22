@@ -82,7 +82,7 @@ public class SystemController {
       // Simulating a long-running task
       Thread.sleep(2000);
     } catch (InterruptedException e) {
-      logger.error("Exception occurred while processing /error endpoint", e);
+      logger.error("Exception occurred while processing /process endpoint", e);
       e.printStackTrace();
     }
     return "Processed by " + Thread.currentThread().getName();
