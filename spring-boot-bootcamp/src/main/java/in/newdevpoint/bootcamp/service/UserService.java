@@ -79,9 +79,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserEntity createUser(UserEntity userEntity) {
-        return userRepository.save(userEntity);
-    }
 
 public UserEntity updateUser(String id, UserEntity updatedUserEntity) {
     return userRepository.findById(id)

@@ -44,19 +44,7 @@ public class UserServiceTest {
     assertThrows(UserNotFoundException.class, () -> userService.getUserById(userId));
   }
 
-  @Test
-  void testCreateUser() {
-    UserEntity user = new UserEntity("Jane Doe", "jane@example.com", "password");
-    UserEntity savedUser = new UserEntity("Jane Doe", "jane@example.com", "password");
-    savedUser.setId(userId);
-    when(userRepository.save(user)).thenReturn(savedUser);
 
-    UserEntity result = userService.createUser(user);
-
-    assertNotNull(result);
-    assertEquals(userId, result.getId());
-    assertEquals("Jane Doe", result.getUsername());
-  }
 
   @Test
   void testDeleteUser_UserExists() {
