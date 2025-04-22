@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfig {
 
-    //  @Autowired RestTemplateResponseErrorHandler handler;
+  //  @Autowired RestTemplateResponseErrorHandler handler;
 
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
-    }
+  @Bean
+  public RestTemplate getRestTemplate() {
+    return new RestTemplate();
+  }
 }

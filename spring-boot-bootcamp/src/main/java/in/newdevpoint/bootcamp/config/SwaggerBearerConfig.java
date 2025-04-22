@@ -12,17 +12,17 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPIDefinition
 public class SwaggerBearerConfig {
 
-    private static final String SCHEME_NAME = "bearerAuth";
-    private static final String SCHEME = "bearer";
+  private static final String SCHEME_NAME = "bearerAuth";
+  private static final String SCHEME = "bearer";
 
-    @Bean
-    OpenAPI customOpenApi() {
-        return new OpenAPI()
-                .components(new Components().addSecuritySchemes(SCHEME_NAME, createBearerScheme()))
-                .addSecurityItem(new SecurityRequirement().addList(SCHEME_NAME));
-    }
+  @Bean
+  OpenAPI customOpenApi() {
+    return new OpenAPI()
+        .components(new Components().addSecuritySchemes(SCHEME_NAME, createBearerScheme()))
+        .addSecurityItem(new SecurityRequirement().addList(SCHEME_NAME));
+  }
 
-    private SecurityScheme createBearerScheme() {
-        return new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme(SCHEME);
-    }
+  private SecurityScheme createBearerScheme() {
+    return new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme(SCHEME);
+  }
 }
