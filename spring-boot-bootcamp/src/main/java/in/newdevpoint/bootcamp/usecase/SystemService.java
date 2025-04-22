@@ -52,7 +52,7 @@ public class SystemService {
     try {
       return Utility.getTemplateString(classPathResource);
     } catch (IOException e) {
-      logger.error("Exception occurred while processing /error endpoint", e);
+      logger.error("Exception occurred while reading file", e);
       e.printStackTrace();
     }
     return "File not found";
