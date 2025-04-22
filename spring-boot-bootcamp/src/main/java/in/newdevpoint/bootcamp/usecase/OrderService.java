@@ -23,7 +23,7 @@ public class OrderService {
             Thread.sleep(1000);
             System.out.println("Email sent to " + email);
           } catch (InterruptedException e) {
-            logger.error("Exception occurred while processing /error endpoint", e);
+            logger.error("Exception occurred while sending order confirmation email", e);
             e.printStackTrace();
           }
         });
