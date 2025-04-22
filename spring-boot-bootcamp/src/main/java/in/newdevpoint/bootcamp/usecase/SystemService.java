@@ -4,6 +4,8 @@ import in.newdevpoint.bootcamp.entity.CoffeeEntity;
 import in.newdevpoint.bootcamp.utility.Utility;
 import java.io.IOException;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ClassPathResource;
@@ -13,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class SystemService {
+  private static final Logger logger = LoggerFactory.getLogger(SystemService.class);
 
   @Autowired RestTemplate restTemplate;
 
@@ -49,6 +52,7 @@ public class SystemService {
     try {
       return Utility.getTemplateString(classPathResource);
     } catch (IOException e) {
+      logger.error("Exception occurred while reading file", e);
       e.printStackTrace();
     }
     return "File not found";

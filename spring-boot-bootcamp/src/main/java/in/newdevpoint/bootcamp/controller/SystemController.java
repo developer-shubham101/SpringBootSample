@@ -3,6 +3,8 @@ package in.newdevpoint.bootcamp.controller;
 import in.newdevpoint.bootcamp.data.SampleData;
 import in.newdevpoint.bootcamp.usecase.OrderService;
 import in.newdevpoint.bootcamp.usecase.SystemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/system")
 // @PreAuthorize(RoleConstants.ADMIN_CRUD)
 public class SystemController {
+
+  private static final Logger logger = LoggerFactory.getLogger(SystemController.class);
 
   private final Environment environment;
 
@@ -78,6 +82,7 @@ public class SystemController {
       // Simulating a long-running task
       Thread.sleep(2000);
     } catch (InterruptedException e) {
+      logger.error("Exception occurred while processing /process endpoint", e);
       e.printStackTrace();
     }
     return "Processed by " + Thread.currentThread().getName();
