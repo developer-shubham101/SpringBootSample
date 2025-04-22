@@ -37,7 +37,7 @@ public class OrderService {
       Thread.sleep(2000);
       System.out.println("Refund Initiated");
     } catch (InterruptedException e) {
-      logger.error("Exception occurred while processing /error endpoint", e);
+      logger.error("Exception occurred while initiating refund", e);
       e.printStackTrace();
     }
   }
@@ -46,7 +46,7 @@ public class OrderService {
 
     try {
       Thread.sleep(300);
-      System.out.println("Order placed.");
+      logger.info("Order placed.");
     } catch (InterruptedException e) {
       logger.error("Exception occurred while processing /error endpoint", e);
       e.printStackTrace();
