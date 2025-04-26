@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/system")
@@ -37,12 +37,45 @@ public class SystemController {
     String googleMapKey = environment.getProperty("google.map.key");
     String apiKey = environment.getProperty("API_KEY");
 
+     logger.trace("TRACE log example");
+        logger.debug("DEBUG log example");
+        logger.info("INFO log example");
+        logger.warn("WARN log example");
+        logger.error("ERROR log example");
+
+        try {
+            int x = 1 / 0;  // Cause an exception
+        } catch (Exception e) {
+            logger.error("Caught an exception", e);
+        }
+
     return "Active profile: "
         + String.join(", ", environment.getActiveProfiles())
         + "\n"
         + googleMapKey
         + "\n"
         + apiKey;
+  }
+
+  /**
+   * Creates a log entry by saving data from the path, query parameters, and request body.
+   *
+   * @param pathVariables the path variables (if any)
+   * @param queryParams the query parameters (if any)
+   * @param requestBody the request body (if any)
+   * @return a success message with HTTP 200 status
+   */
+  @PostMapping("/create-log")
+  public ResponseEntity<String> createLog(
+      @RequestParam(required = false) Map<String, String> queryParams,
+      @RequestBody(required = false) Map<String, Object> requestBody) {
+    logger.debug("Path variables: {}", "Captured by wildcard path");
+    logger.debug("Query parameters: {}", queryParams);
+    logger.debug("Request body: {}", requestBody);
+
+    // Here you can add logic to save the data to a database or file if needed
+
+    return ResponseEntity.ok("Log created successfully");
   }
 
   /**

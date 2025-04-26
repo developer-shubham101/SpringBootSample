@@ -1,12 +1,31 @@
+strict.perms: false
+
 filebeat.inputs:
   - type: log
     enabled: true
     paths:
-      - /var/log/myapp/*.log
-      - /usr/share/filebeat/logs/app.log  # Add this path to monitor the Spring Boot log file
+      - /usr/share/filebeat/logs/*.log
+      - /usr/share/filebeat/logs/*.txt # Add any other log file extensions
 
 output.elasticsearch:
-  hosts: ["http://elasticsearch:9200"]
+  hosts: ["elasticsearch:9200"]
+  # username: "elastic"  # Uncomment and configure if Elasticsearch has security enabled
+  # password: "your_password"
 
+# Configure processors to enhance the log data (optional but recommended)
+processors:
+  - add_host_metadata:
+  - add_cloud_metadata:
+  - decode_json_fields:
+      when:
+        equals:
+          processor: "log" # Apply to log input type
+      fields: ["message"] # Assuming your log messages are sometimes JSON
+      target: "json"
+      overwrite_keys: true
+  - drop_fields:
+      fields: ["input.type", "agent", "ecs"] # Remove unnecessary fields
+
+# Configure setup for Kibana (optional but recommended for dashboards)
 setup.kibana:
-  host: "http://kibana:5601"
+  host: "kibana:5601"
