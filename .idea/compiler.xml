@@ -23,8 +23,18 @@
         <module name="sb-user" />
         <module name="sb-blog-business" />
         <module name="spring-boot-bootcamp" />
+        <module name="api-gateway" />
         <module name="sb-blog-info" />
         <module name="ApiGateway" />
+      </profile>
+      <profile name="Annotation profile for reactive" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="reactive" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -34,6 +44,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGateway" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="reactive" options="-parameters" />
       <module name="sb-blog-business" options="-parameters" />
       <module name="sb-blog-comments" options="-parameters" />
       <module name="sb-blog-info" options="-parameters" />

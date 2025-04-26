@@ -14,11 +14,28 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
   //    @Mapping(source = "id", target = "id")
-  //    @Mapping(source = "username", target = "username")
+  /****
+   * Converts a UserEntity object to a UserReq data transfer object.
+   *
+   * @param sourceBean the UserEntity to convert
+   * @return the corresponding UserReq object, or a default instance if sourceBean is null
+   */
   UserReq mapToResponseEntity(UserEntity sourceBean);
 
+  /**
+   * Converts a UserReq DTO to a UserEntity object.
+   *
+   * @param sourceBean the UserReq DTO to convert
+   * @return the corresponding UserEntity, or a default instance if sourceBean is null
+   */
   UserEntity mapFromReqToUserEntity(UserReq sourceBean);
 
+  /**
+   * Converts a list of UserEntity objects to a list of UserReq DTOs.
+   *
+   * @param sourceBeans the list of UserEntity objects to convert; may be null
+   * @return a list of UserReq DTOs, or null if the input list is null
+   */
   default List<UserReq> mapToResponseEntityList(List<UserEntity> sourceBeans) {
     if (sourceBeans == null) {
       return null;

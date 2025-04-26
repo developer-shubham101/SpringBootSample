@@ -2,12 +2,25 @@ package in.newdevpoint.bootcamp.usecase;
 
 import java.util.ArrayList;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
+  private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
+  /**
+   * Asynchronously sends order confirmation emails to a list of recipients.
+   *
+   * <p>Each email address in the provided list is processed in a separate thread, simulating a
+   * delay for sending.
+   *
+   * @param emailList list of recipient email addresses
+   * @param orderDetails details of the order to include in the confirmation
+   */
   @Async // This makes the method execute in a separate thread
   public void sendOrderConfirmationEmail(ArrayList<String> emailList, String orderDetails) {
     // Simulate a long-running email sending process
@@ -19,11 +32,18 @@ public class OrderService {
             Thread.sleep(1000);
             System.out.println("Email sent to " + email);
           } catch (InterruptedException e) {
+            logger.error("Exception occurred while sending order confirmation email", e);
             e.printStackTrace();
           }
         });
   }
 
+  /**
+   * Initiates a refund process asynchronously, simulating a delay to represent processing time.
+   *
+   * <p>This method runs in a separate thread and prints the current thread name and a confirmation
+   * message upon completion.
+   */
   @Async // This makes the method execute in a separate thread
   public void initiateRefund() {
     try {
@@ -32,16 +52,26 @@ public class OrderService {
       Thread.sleep(2000);
       System.out.println("Refund Initiated");
     } catch (InterruptedException e) {
+      logger.error("Exception occurred while initiating refund", e);
       e.printStackTrace();
     }
   }
 
+  /**
+   * Places an order synchronously and returns a generated order number.
+   *
+   * <p>Simulates order processing by introducing a brief delay before generating and returning a
+   * unique order number string.
+   *
+   * @return the generated order number in the format "#OR-XXXX"
+   */
   public String placeOrder() {
 
     try {
       Thread.sleep(300);
-      System.out.println("Order placed.");
+      logger.info("Order placed.");
     } catch (InterruptedException e) {
+      logger.error("Exception occurred while placing order", e);
       e.printStackTrace();
     }
 

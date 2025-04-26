@@ -20,8 +20,16 @@ public class JwtUtils {
   private String jwtSecret; // Secret key used for signing and verifying JWT tokens
 
   @Value("${auth.jwtExpirationMs}")
-  private int jwtExpirationMs; // JWT token expiration time in milliseconds
-
+  private int jwtExpirationMs;
+  /**
+   * Generates a JWT token for the authenticated user.
+   *
+   * <p>The token's subject is set to the user's username, with the issued and expiration dates
+   * determined by the current time and configured expiration period.
+   *
+   * @param authentication the authentication object containing the user's details
+   * @return a signed JWT token string
+   */
   public String generateJwtToken(Authentication authentication) {
 
     UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -34,10 +42,21 @@ public class JwtUtils {
         .compact();
   }
 
+  /**
+   * Decodes the base64-encoded JWT secret and returns an HMAC SHA-256 signing key.
+   *
+   * @return a cryptographic key for signing and verifying JWT tokens
+   */
   private Key key() {
     return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
   }
 
+  /**
+   * Extracts the username from the subject claim of a JWT token.
+   *
+   * @param token the JWT token to parse
+   * @return the username contained in the token's subject claim
+   */
   public String getUserNameFromJwtToken(String token) {
     return Jwts.parserBuilder()
         .setSigningKey(key())
@@ -47,6 +66,12 @@ public class JwtUtils {
         .getSubject();
   }
 
+  /**
+   * Validates a JWT token by verifying its signature and structure.
+   *
+   * @param authToken the JWT token to validate
+   * @return true if the token is valid; false otherwise
+   */
   public boolean validateJwtToken(String authToken) {
     try {
       Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);

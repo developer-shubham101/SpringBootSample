@@ -10,6 +10,12 @@ public class ApplicationShutdown {
 
   @Autowired private MongoClient mongoClient;
 
+  /**
+   * Closes the MongoDB client connection during application shutdown.
+   *
+   * <p>Invoked automatically before the bean is destroyed to ensure all MongoDB connections are
+   * properly closed.
+   */
   @PreDestroy
   public void cleanUp() {
     if (mongoClient != null) {

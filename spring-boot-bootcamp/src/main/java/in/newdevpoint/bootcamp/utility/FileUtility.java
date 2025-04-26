@@ -1,9 +1,13 @@
 package in.newdevpoint.bootcamp.utility;
 
 import java.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtility {
+
+  private static final Logger logger = LoggerFactory.getLogger(FileUtility.class);
 
   public static String fileUpload(MultipartFile file, String absoluteFileUrl) {
     InputStream inputStream;
@@ -17,7 +21,7 @@ public class FileUtility {
 
       if (!newFile.exists()) {
         boolean isFiledSaved = newFile.createNewFile();
-        System.out.println("isFiledSaved: " + isFiledSaved);
+        logger.info("isFiledSaved: " + isFiledSaved);
       }
       outputStream = new FileOutputStream(newFile);
       int read;

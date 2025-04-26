@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -40,6 +41,14 @@ public class AuthController {
 
   @Autowired JwtUtils jwtUtils;
 
+  /**
+   * Authenticates a user with the provided credentials and returns a JWT token along with user
+   * details.
+   *
+   * @param loginRequest the login credentials containing username and password
+   * @return a response entity containing the JWT token, user ID, username, email, and assigned
+   *     roles
+   */
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -62,7 +71,12 @@ public class AuthController {
             jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
   }
 
-  @GetMapping("/createRoleList")
+  /**
+   * Creates and persists all roles defined in the {@code ERole} enum.
+   *
+   * @return HTTP 201 response with a message indicating successful role creation
+   */
+  @PostMapping("/createRoleList")
   public ResponseEntity<?> createRoleList() {
     List<Role> roleList = Arrays.stream(ERole.values()).map(Role::new).collect(Collectors.toList());
 
@@ -70,9 +84,22 @@ public class AuthController {
       roleRepository.save(role);
     }
 
-    return ResponseEntity.ok(new MessageResponse("Done"));
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(new MessageResponse("Roles created successfully"));
   }
 
+  /**
+   * Registers a new user with the provided signup details.
+   *
+   * <p>Validates that the username and email are unique, encodes the password, assigns roles
+   * (defaulting to user if none specified), and saves the new user to the repository. Returns an
+   * appropriate HTTP response indicating success or failure.
+   *
+   * @param signUpRequest the signup request containing username, email, password, and optional
+   *     roles
+   * @return HTTP 200 with a success message if registration is successful, or HTTP 400 with an
+   *     error message if the username or email already exists
+   */
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {

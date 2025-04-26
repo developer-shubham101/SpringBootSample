@@ -31,12 +31,27 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = "*")
 public class UserService {
 
+  private static final QueryConversionPipeline pipeline = QueryConversionPipeline.defaultPipeline();
   private final Environment environment;
   private final MongoTemplate template;
   private final UserMapper userMapper; // @RequiredArgsConstructor will create constructor
-  private static final QueryConversionPipeline pipeline = QueryConversionPipeline.defaultPipeline();
   private final UserRepository userRepository;
 
+  /**
+   * Searches for users with optional filtering, sorting, and pagination.
+   *
+   * <p>If a query string is provided, it is parsed into MongoDB criteria for advanced filtering.
+   * Results can be sorted by a specified field and direction, and are paginated according to the
+   * provided page and size parameters.
+   *
+   * @param size the number of users per page
+   * @param page the page number to retrieve (zero-based)
+   * @param sortDir the sort direction ("ASC" or "DESC"); defaults to ascending by "id" if not
+   *     specified
+   * @param query an optional query string for filtering users
+   * @param sortBy the field to sort by; defaults to "id" if not specified
+   * @return a paginated list of users matching the criteria
+   */
   public Page<UserReq> searchUser(
       Integer size, Integer page, String sortDir, String query, String sortBy) {
     Criteria criteria;
@@ -74,48 +89,111 @@ public class UserService {
     return PageableExecutionUtils.getPage(users, pageable, () -> count);
   }
 
+  /**
+   * Retrieves all user entities from the database.
+   *
+   * @return a list of all users
+   */
   public List<UserEntity> getUsers() {
     return userRepository.findAll();
   }
 
-  public UserEntity createUser(UserEntity userEntity) {
-    return userRepository.save(userEntity);
-  }
-
+  /**
+   * Updates an existing user's information with the provided non-blank fields.
+   *
+   * <p>Only fields in {@code updatedUserEntity} that are not blank will overwrite the corresponding
+   * fields of the user identified by {@code id}.
+   *
+   * @param id the unique identifier of the user to update
+   * @param updatedUserEntity the user entity containing updated values
+   * @return the updated user entity
+   * @throws UsernameNotFoundException if no user exists with the given id
+   */
   public UserEntity updateUser(String id, UserEntity updatedUserEntity) {
-    UserEntity existingUserEntity = userRepository.findById(id).orElse(null);
-    if (existingUserEntity != null) {
-      existingUserEntity.setUsername(updatedUserEntity.getUsername());
-      existingUserEntity.setEmail(updatedUserEntity.getEmail());
-      return userRepository.save(existingUserEntity);
-    }
-    return null; // User not found
+    return userRepository
+        .findById(id)
+        .map(
+            existingUser -> {
+              // Update all relevant fields only if provided
+              if (StringUtils.isNotBlank(updatedUserEntity.getUsername())) {
+                existingUser.setUsername(updatedUserEntity.getUsername());
+              }
+              if (StringUtils.isNotBlank(updatedUserEntity.getEmail())) {
+                existingUser.setEmail(updatedUserEntity.getEmail());
+              }
+              // Add other fields as needed, e.g.:
+              // if (StringUtils.isNotBlank(updatedUserEntity.getPhone())) {
+              //     existingUser.setPhone(updatedUserEntity.getPhone());
+              // }
+              return userRepository.save(existingUser);
+            })
+        .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + id));
   }
 
+  /****
+   * Deletes the user with the specified ID from the database.
+   *
+   * @param id the unique identifier of the user to delete
+   */
   public void deleteUser(String id) {
     userRepository.deleteById(id);
   }
 
+  /****
+   * Retrieves a user by username.
+   *
+   * @param username the username to search for
+   * @return an Optional containing the user if found, or empty if not found
+   */
   public Optional<UserEntity> getUser(String username) {
     return userRepository.findByUsername(username);
   }
 
+  /**
+   * Retrieves a user by their unique identifier.
+   *
+   * @param id the unique identifier of the user
+   * @return an Optional containing the UserEntity if found, or empty if not found
+   */
   public Optional<UserEntity> getUserById(String id) {
     return userRepository.findById(id);
   }
 
+  /**
+   * Retrieves a user by username or throws an exception if not found.
+   *
+   * @param username the username to search for
+   * @return the user entity matching the given username
+   * @throws UsernameNotFoundException if no user with the specified username exists
+   */
   public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
     return userRepository
         .findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("username not found"));
   }
 
+  /**
+   * Retrieves a user by their unique ID.
+   *
+   * @param id the unique identifier of the user
+   * @return the user entity with the specified ID
+   * @throws UsernameNotFoundException if no user with the given ID is found
+   */
   public UserEntity findById(String id) {
     return userRepository
         .findById(id)
         .orElseThrow(() -> new UsernameNotFoundException("user id not found"));
   }
 
+  /**
+   * Uploads a profile image for the specified user and updates the user's profile with the image
+   * URL.
+   *
+   * @param file the profile image file to upload
+   * @param username the username of the user whose profile image is to be updated
+   * @return the updated UserEntity with the new profile image URL, or null if the user does not
+   *     exist
+   */
   public UserEntity uploadUserProfile(MultipartFile file, String username) {
     String absoluteFileUrl = environment.getProperty("file.absolute.url");
     String uploadedFileUrl = FileUtility.fileUpload(file, absoluteFileUrl);
