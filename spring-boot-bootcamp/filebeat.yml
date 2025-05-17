@@ -1,0 +1,31 @@
+strict.perms: false
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/logs/*.log
+      - /usr/share/filebeat/logs/*.txt # Add any other log file extensions
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  # username: "elastic"  # Uncomment and configure if Elasticsearch has security enabled
+  # password: "your_password"
+
+# Configure processors to enhance the log data (optional but recommended)
+processors:
+  - add_host_metadata:
+  - add_cloud_metadata:
+  - decode_json_fields:
+      when:
+        equals:
+          processor: "log" # Apply to log input type
+      fields: ["message"] # Assuming your log messages are sometimes JSON
+      target: "json"
+      overwrite_keys: true
+  - drop_fields:
+      fields: ["input.type", "agent", "ecs"] # Remove unnecessary fields
+
+# Configure setup for Kibana (optional but recommended for dashboards)
+setup.kibana:
+  host: "kibana:5601"

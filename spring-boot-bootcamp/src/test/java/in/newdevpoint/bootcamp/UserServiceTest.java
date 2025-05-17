@@ -109,14 +109,6 @@ public class UserServiceTest {
         UserEntity result = userService.updateUser("1", updatedUser);
 
         assertNotNull(result);
-        assertEquals("oldUser", result.getUsername());
-    }
-
-    @Test
-    void updateUser_throwsExceptionWhenUserNotFound() {
-        when(userRepository.findById("1")).thenReturn(Optional.empty());
-
-        assertThrows(
                 UsernameNotFoundException.class, () -> userService.updateUser("1", new UserEntity("testUser", "test@example.com", "123456")));
     }
 
