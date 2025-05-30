@@ -7,6 +7,8 @@ import com.example.reactive.model.Product;
 import com.example.reactive.model.ProductOrder;
 import com.example.reactive.repository.OrderRepository;
 import com.example.reactive.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
@@ -19,6 +21,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class OrderService {
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
 
@@ -62,10 +65,10 @@ public class OrderService {
                             }));
                 })
                 // doOnSuccess executes when the Mono completes successfully, emitting the order
-                .doOnSuccess(order -> System.out.println("Order placed successfully: " + order.getId()))
+                .doOnSuccess(order -> logger.info("Order placed successfully: {}", order.getId()))
                 // doOnError executes when the Mono emits an error of type StockUpdateException
-                .doOnError(StockUpdateException.class, e -> System.err.println("Stock update failed during order: " + e.getMessage()))
+                .doOnError(StockUpdateException.class, e -> logger.error("Stock update failed during order: {}", e.getMessage()))
                 // doOnError executes when the Mono emits an error of type InsufficientStockException
-                .doOnError(InsufficientStockException.class, e -> System.err.println("Order failed due to insufficient stock: " + e.getMessage()));
+                .doOnError(InsufficientStockException.class, e -> logger.error("Order failed due to insufficient stock: {}", e.getMessage()));
     }
 } 

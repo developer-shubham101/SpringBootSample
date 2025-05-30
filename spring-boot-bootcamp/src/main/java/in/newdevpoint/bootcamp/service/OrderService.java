@@ -1,4 +1,4 @@
-package in.newdevpoint.bootcamp.usecase;
+package in.newdevpoint.bootcamp.service;
 
 import java.util.ArrayList;
 import java.util.Random;

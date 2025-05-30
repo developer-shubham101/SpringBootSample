@@ -4,6 +4,7 @@ import com.example.reactive.dto.ProductDetailDTO;
 import com.example.reactive.exception.ProductNotFoundException;
 import com.example.reactive.model.Product;
 import com.example.reactive.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -110,7 +111,7 @@ public class ProductController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Product> createProduct(@RequestBody Product product) {
+    public Mono<Product> createProduct(@RequestBody @Valid Product product) {
         return productService.createProduct(product);
     }
 
