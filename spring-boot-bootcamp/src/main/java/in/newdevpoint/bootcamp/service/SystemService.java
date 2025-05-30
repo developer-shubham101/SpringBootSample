@@ -1,4 +1,4 @@
-package in.newdevpoint.bootcamp.usecase;
+package in.newdevpoint.bootcamp.service;
 
 import in.newdevpoint.bootcamp.entity.CoffeeEntity;
 import in.newdevpoint.bootcamp.utility.Utility;

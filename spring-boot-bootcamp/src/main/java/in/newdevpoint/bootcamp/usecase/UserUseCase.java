@@ -15,89 +15,132 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * UserUseCase class implements the Use Case pattern for user-related operations.
+ * This class acts as an intermediary between the controller and service layers,
+ * handling business logic and orchestrating operations.
+ * 
+ * Key responsibilities:
+ * - Orchestrates user-related business operations
+ * - Transforms data between DTOs and entities
+ * - Handles business rules and validations
+ * - Manages user lifecycle operations
+ * 
+ * The class uses constructor injection through @RequiredArgsConstructor
+ * to ensure all dependencies are properly initialized.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class UserUseCase {
 
-  private final UserMapper userMapper; // @RequiredArgsConstructor will create constructor
-  // injected via @RequiredArgsConstructor alternative way @Autowired private UserService
-  // userService;
-
-  private final UserService userService;
   /**
-   * Invoked after the bean's properties have been initialized.
-   *
-   * <p>Logs a message indicating that the bean has been initialized.
+   * UserMapper for converting between DTOs and entities.
+   * Injected via constructor (created by @RequiredArgsConstructor)
+   */
+  private final UserMapper userMapper;
+
+  /**
+   * UserService for handling core user operations.
+   * Injected via constructor (created by @RequiredArgsConstructor)
+   */
+  private final UserService userService;
+
+  /**
+   * Lifecycle method called after dependency injection is complete.
+   * This is where you can perform any initialization that requires
+   * the injected dependencies to be ready.
    */
   @PostConstruct
   public void init() {
-    // Initialization logic here, e.g., open a file or validate configurations
-    log.info("Bean has been initialized!");
-  }
-
-  /** Performs cleanup operations before the bean is destroyed. */
-  @PreDestroy
-  public void cleanup() {
-    // Cleanup logic here, e.g., close a connection or release resources
-    log.info("Bean is about to be destroyed!");
+    log.info("UserUseCase: Bean initialization complete - All dependencies are ready");
   }
 
   /**
-   * Retrieves all users and returns them as a list of user DTOs.
-   *
-   * @return a list of user request DTOs representing all users
+   * Lifecycle method called before the bean is destroyed.
+   * Use this for cleanup operations like releasing resources
+   * or closing connections.
+   */
+  @PreDestroy
+  public void cleanup() {
+    log.info("UserUseCase: Performing cleanup before bean destruction");
+  }
+
+  /**
+   * Retrieves all users from the system.
+   * This operation:
+   * 1. Fetches all user entities from the service layer
+   * 2. Maps them to DTOs for the presentation layer
+   * 
+   * @return List of UserReq DTOs containing user information
    */
   public List<UserReq> getUsers() {
+    log.debug("Fetching all users");
     List<UserEntity> userEntityList = userService.getUsers();
     return userMapper.mapToResponseEntityList(userEntityList);
   }
 
   /**
-   * Searches for users with pagination, sorting, and optional query filtering.
-   *
-   * @param size the number of users per page
-   * @param page the page number to retrieve
-   * @param sortDir the direction of sorting ("asc" or "desc")
-   * @param query an optional search query to filter users
-   * @param sortBy the field to sort by
-   * @return a paginated list of users matching the search criteria
+   * Performs a paginated search for users with filtering and sorting.
+   * This operation supports:
+   * - Pagination (size and page number)
+   * - Sorting (direction and field)
+   * - Filtering (search query)
+   * 
+   * @param size Number of items per page
+   * @param page Page number (0-based)
+   * @param sortDir Sort direction ("asc" or "desc")
+   * @param query Optional search query to filter users
+   * @param sortBy Field to sort by
+   * @return Page of UserReq DTOs matching the search criteria
    */
   public Page<UserReq> searchUser(
       Integer size, Integer page, String sortDir, String query, String sortBy) {
+    log.debug("Searching users with pagination and filters");
     return userService.searchUser(size, page, sortDir, query, sortBy);
   }
 
   /**
-   * Updates an existing user with the provided user information.
-   *
-   * @param userReq the user data to update
-   * @return the updated user as a UserReq DTO
+   * Updates an existing user's information.
+   * This operation:
+   * 1. Converts the request DTO to an entity
+   * 2. Updates the user in the service layer
+   * 3. Converts the updated entity back to a DTO
+   * 
+   * @param userReq User data to update
+   * @return Updated user information as UserReq DTO
    */
   public UserReq updateUser(UserReq userReq) {
+    log.debug("Updating user with ID: {}", userReq.getId());
     UserEntity userEntity = userMapper.mapFromReqToUserEntity(userReq);
-
     UserEntity updateUser = userService.updateUser(userEntity.getId(), userEntity);
     return userMapper.mapToResponseEntity(updateUser);
   }
 
   /**
-   * Deletes a user with the specified ID.
-   *
-   * @param id the unique identifier of the user to delete
+   * Deletes a user from the system.
+   * This operation permanently removes the user and all associated data.
+   * 
+   * @param id ID of the user to delete
    */
   public void deleteUser(String id) {
+    log.debug("Deleting user with ID: {}", id);
     userService.deleteUser(id);
   }
 
   /**
-   * Retrieves a user by username and returns its data as a UserReq DTO.
-   *
-   * @param username the username of the user to retrieve
-   * @return the user data as a UserReq DTO
-   * @throws UserNotFoundException if no user with the given username is found
+   * Retrieves a user by their username.
+   * This operation:
+   * 1. Searches for the user by username
+   * 2. Throws UserNotFoundException if not found
+   * 3. Maps the found user to a DTO
+   * 
+   * @param username Username to search for
+   * @return User information as UserReq DTO
+   * @throws UserNotFoundException if no user is found with the given username
    */
   public UserReq getUser(String username) {
+    log.debug("Fetching user by username: {}", username);
     Optional<UserEntity> user = userService.getUser(username);
     return user.map(userMapper::mapToResponseEntity)
         .orElseThrow(() -> new UserNotFoundException("User not found."));
@@ -105,27 +148,36 @@ public class UserUseCase {
 
   /**
    * Retrieves a user by their unique ID.
-   *
-   * @param id the unique identifier of the user
-   * @return the user data mapped to a UserReq DTO
+   * This operation:
+   * 1. Searches for the user by ID
+   * 2. Throws UserNotFoundException if not found
+   * 3. Maps the found user to a DTO
+   * 
+   * @param id Unique identifier of the user
+   * @return User information as UserReq DTO
    * @throws UserNotFoundException if no user is found with the given ID
    */
   public UserReq getUserById(String id) {
+    log.debug("Fetching user by ID: {}", id);
     Optional<UserEntity> user = userService.getUserById(id);
     return user.map(userMapper::mapToResponseEntity)
         .orElseThrow(() -> new UserNotFoundException("User not found with the given ID."));
   }
 
   /**
-   * Updates a user's profile with the provided file and returns the updated user information.
-   *
-   * @param file the profile file to upload
-   * @param username the username of the user whose profile is being updated
-   * @return the updated user information as a UserReq DTO
+   * Updates a user's profile with a new file.
+   * This operation:
+   * 1. Uploads the profile file
+   * 2. Updates the user's profile information
+   * 3. Returns the updated user information
+   * 
+   * @param file Profile file to upload
+   * @param username Username of the user whose profile is being updated
+   * @return Updated user information as UserReq DTO
    */
   public UserReq uploadUserProfile(MultipartFile file, String username) {
+    log.debug("Uploading profile for user: {}", username);
     UserEntity updateUser = userService.uploadUserProfile(file, username);
-
     return userMapper.mapToResponseEntity(updateUser);
   }
 }

@@ -6,22 +6,34 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Slf4j
-@Component
+/**
+ * This class demonstrates different ways to schedule tasks in Spring Boot using @Scheduled annotation.
+ * It contains examples of fixed rate, fixed delay, and cron-based scheduling.
+ */
+@Slf4j  // Lombok annotation to automatically create a logger instance
+@Component  // Marks this class as a Spring component, making it eligible for auto-detection
 public class MyScheduledTask {
 
-  // Task to run at a fixed interval of 5 seconds
-  @Scheduled(fixedRate = 5000)
+  /**
+   * This method demonstrates fixed rate scheduling.
+   * The task will execute every 5 seconds regardless of the previous task's completion time.
+   * If a task takes longer than 5 seconds, the next task will start immediately after the previous one finishes.
+   */
+  @Scheduled(fixedRate = 5000)  // 5000 milliseconds = 5 seconds
   public void executeTaskAtFixedRate() {
     log.info(
         "Task executed at fixed rate - "
-            + System.currentTimeMillis()
+            + System.currentTimeMillis()  // Current time in milliseconds since epoch
             + " - "
-            + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MMM.yyyy hh:mm:ss")));
+            + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MMM.yyyy hh:mm:ss")));  // Formatted current date and time
   }
 
-  // Task to run with a fixed delay of 3 seconds after the previous task finishes
-  @Scheduled(fixedDelay = 3000)
+  /**
+   * This method demonstrates fixed delay scheduling.
+   * The task will execute 3 seconds after the previous task completes.
+   * Unlike fixed rate, this ensures a delay between task completions.
+   */
+  @Scheduled(fixedDelay = 3000)  // 3000 milliseconds = 3 seconds
   public void executeTaskWithFixedDelay() {
     log.info(
         "Task executed with fixed delay - "
@@ -30,11 +42,20 @@ public class MyScheduledTask {
             + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MMM.yyyy hh:mm:ss")));
   }
 
-  //    @Scheduled(cron = "0 30 23 * * ?", zone = "Asia/Kolkata") // 11:30 pm
+  /**
+   * This method demonstrates cron-based scheduling.
+   * Currently set to run every minute (0 * * * * *).
+   * Other commented cron expressions show different scheduling patterns:
+   * - "0 30 23 * * ?" - Runs at 11:30 PM every day
+   * - "0 0 * * * *" - Runs at the start of every hour
+   * - "0 0 9 * * ?" - Runs at 9 AM every day
+   * 
+   * Cron expression format: "second minute hour day-of-month month day-of-week"
+   */
   @Scheduled(cron = "0 * * * * *") // every minute
+  //    @Scheduled(cron = "0 30 23 * * ?", zone = "Asia/Kolkata") // 11:30 pm
   //    @Scheduled(cron = "0 0 * * * *") // Every hr.
   //    @Scheduled(cron = "0 0 9 * * ?") // Task to run at specific times using a cron expression
-  // (Every day at 9 AM)
   public void executeTaskWithCronExpression() {
     log.info(
         "Task executed with cron expression at 9 AM - "

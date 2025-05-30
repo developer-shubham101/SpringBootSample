@@ -1,8 +1,8 @@
-package com.example.reactive;
+package com.example.reactive.controller;
 
 
-import com.example.reactive.sample.CustomEpisode;
-import com.example.reactive.sample.EpisodeResponse;
+import com.example.reactive.model.CustomEpisode;
+import com.example.reactive.model.EpisodeResponse;
 import io.micrometer.tracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

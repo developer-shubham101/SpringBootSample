@@ -1,0 +1,66 @@
+{
+  "products": [
+    {
+      "name": "Super Laptop X1",
+      "description": "Latest gen laptop, 16GB RAM, 512GB SSD",
+      "price": 1299.99,
+      "stockQuantity": 50
+    },
+    {
+      "name": "Wireless Mouse Pro",
+      "description": "Ergonomic and precise with customizable buttons",
+      "price": 49.99,
+      "stockQuantity": 200
+    },
+    {
+      "name": "Mechanical Keyboard RGB",
+      "description": "Full-size clicky keys with per-key RGB lighting",
+      "price": 89.50,
+      "stockQuantity": 100
+    },
+    {
+      "name": "4K UHD Monitor 27\"",
+      "description": "Crisp visuals for work and play",
+      "price": 349.00,
+      "stockQuantity": 30
+    },
+    {
+      "name": "Gaming Headset 7.1",
+      "description": "Immersive surround sound for gaming",
+      "price": 79.99,
+      "stockQuantity": 75
+    }
+  ],
+  "reviews": [
+    {
+      "productId": "1",
+      "author": "John Doe",
+      "rating": 5,
+      "comment": "Excellent product, highly recommended!"
+    },
+    {
+      "productId": "1",
+      "author": "Jane Smith",
+      "rating": 4,
+      "comment": "Great laptop, but a bit pricey."
+    },
+    {
+      "productId": "2",
+      "author": "Mike Johnson",
+      "rating": 5,
+      "comment": "Best mouse I've ever used!"
+    }
+  ],
+  "orders": [
+    {
+      "productId": "1",
+      "quantity": 2,
+      "orderStatus": "PENDING"
+    },
+    {
+      "productId": "3",
+      "quantity": 1,
+      "orderStatus": "CONFIRMED"
+    }
+  ]
+} 

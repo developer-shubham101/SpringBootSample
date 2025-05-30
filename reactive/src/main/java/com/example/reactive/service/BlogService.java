@@ -1,10 +1,14 @@
-package com.example.reactive;
+package com.example.reactive.service;
 
+import com.example.reactive.model.Blog;
+import com.example.reactive.repository.BlogRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @Service
 public class BlogService {
@@ -47,5 +51,9 @@ public class BlogService {
     public Mono<Boolean> deleteBlog(String id) {
         return blogRepository.findById(id).flatMap(blogRepository::delete
         ).then(Mono.just(true)).switchIfEmpty(Mono.just(false));
+    }
+
+    public Flux<Blog> createBlogsBulk(List<Blog> blogs) {
+        return blogRepository.saveAll(blogs);
     }
 }

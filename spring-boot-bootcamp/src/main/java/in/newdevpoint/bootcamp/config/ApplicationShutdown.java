@@ -5,16 +5,34 @@ import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class handles the graceful shutdown of application resources.
+ * It ensures that all database connections and other resources are properly closed
+ * when the Spring Boot application is shutting down.
+ * 
+ * The class is marked as a Spring component to be automatically detected and managed
+ * by the Spring container.
+ */
 @Component
 public class ApplicationShutdown {
 
+  /**
+   * MongoDB client instance that needs to be properly closed during shutdown.
+   * Autowired by Spring to inject the configured MongoDB client.
+   */
   @Autowired private MongoClient mongoClient;
 
   /**
-   * Closes the MongoDB client connection during application shutdown.
+   * This method is automatically called by Spring during application shutdown.
+   * It ensures proper cleanup of MongoDB connections to prevent resource leaks.
    *
-   * <p>Invoked automatically before the bean is destroyed to ensure all MongoDB connections are
-   * properly closed.
+   * The @PreDestroy annotation ensures this method is called before the bean is destroyed,
+   * making it ideal for cleanup operations.
+   *
+   * <p>Key responsibilities:
+   * - Checks if MongoDB client exists
+   * - Closes all active MongoDB connections
+   * - Prevents resource leaks during application shutdown
    */
   @PreDestroy
   public void cleanUp() {

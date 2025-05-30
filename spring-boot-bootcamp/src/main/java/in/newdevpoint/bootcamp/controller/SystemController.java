@@ -1,8 +1,8 @@
 package in.newdevpoint.bootcamp.controller;
 
 import in.newdevpoint.bootcamp.data.SampleData;
-import in.newdevpoint.bootcamp.usecase.OrderService;
-import in.newdevpoint.bootcamp.usecase.SystemService;
+import in.newdevpoint.bootcamp.service.OrderService;
+import in.newdevpoint.bootcamp.service.SystemService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

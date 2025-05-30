@@ -1,4 +1,4 @@
-package com.example.reactive.sample;
+package com.example.reactive.model;
 
 import lombok.Data;
 
