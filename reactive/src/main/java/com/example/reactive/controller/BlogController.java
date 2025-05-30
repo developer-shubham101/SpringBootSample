@@ -28,13 +28,22 @@ public class BlogController {
     }
 
     @PostMapping("/bulk")
-    public Mono<ResponseEntity<String>> createBlogsBulk(@RequestBody List<Blog> blogs) {
+    public Mono<ResponseEntity<String>> createBlogsBulk(@RequestBody @Valid List<@Valid Blog> blogs) {
+        if (blogs == null || blogs.isEmpty()) {
+            return Mono.just(ResponseEntity
+                    .badRequest()
+                    .body("Blog list cannot be empty"));
+        }
         return Flux.fromIterable(blogs)
                 .flatMap(blogService::createBlog)
-                .collectList()
-                .map(savedBlogs -> ResponseEntity
+                .count()
+                .map(count -> ResponseEntity
                         .created(URI.create("/blogs/bulk"))
-                        .body("Successfully created " + savedBlogs.size() + " blogs"));
+                        .body("Successfully created " + count + " blogs"))
+                .onErrorResume(ex ->
+                        Mono.just(ResponseEntity
+                                .status(500)
+                                .body("Error creating blogs: " + ex.getMessage())));
     }
 
     @GetMapping
