@@ -2,6 +2,7 @@ package com.example.reactive.controller;
 
 import com.example.reactive.model.Blog;
 import com.example.reactive.service.BlogService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
