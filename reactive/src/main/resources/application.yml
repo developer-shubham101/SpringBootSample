@@ -5,3 +5,27 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/reactive-db
+
+  webflux:
+    base-path: /
+    max-in-memory-size: 50MB
+    codec:
+      max-in-memory-size: 50MB
+    client:
+      max-body-size: 50MB
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+server:
+  tomcat:
+    max-http-form-post-size: 50MB
+    max-swallow-size: 50MB
+  max-http-header-size: 10KB
+  max-http-post-size: 50MB
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 2048

@@ -1,4 +1,4 @@
-package com.example.reactive;
+package com.example.reactive.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

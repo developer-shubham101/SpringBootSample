@@ -1,4 +1,4 @@
-package com.example.reactive.sample;
+package com.example.reactive.config;
 
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.otel.bridge.OtelCurrentTraceContext;

@@ -1,11 +1,14 @@
-package com.example.reactive;
+package com.example.reactive.controller;
 
+import com.example.reactive.model.Blog;
+import com.example.reactive.service.BlogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/blogs")
@@ -22,6 +25,16 @@ public class BlogController {
                 .map(saved -> ResponseEntity
                         .created(URI.create("/blogs/" + saved.getId()))
                         .body(saved));
+    }
+
+    @PostMapping("/bulk")
+    public Mono<ResponseEntity<String>> createBlogsBulk(@RequestBody List<Blog> blogs) {
+        return Flux.fromIterable(blogs)
+                .flatMap(blogService::createBlog)
+                .collectList()
+                .map(savedBlogs -> ResponseEntity
+                        .created(URI.create("/blogs/bulk"))
+                        .body("Successfully created " + savedBlogs.size() + " blogs"));
     }
 
     @GetMapping
