@@ -25,10 +25,10 @@ public class SampleDataService {
     private final OrderRepository orderRepository;
     private final ObjectMapper objectMapper;
 
-    public SampleDataService(ProductRepository productRepository, OrderRepository orderRepository) {
+    public SampleDataService(ProductRepository productRepository, OrderRepository orderRepository, ObjectMapper objectMapper) {
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
-        this.objectMapper = new ObjectMapper();
+        this.objectMapper = objectMapper;
     }
 
     public Mono<Void> loadSampleData() {

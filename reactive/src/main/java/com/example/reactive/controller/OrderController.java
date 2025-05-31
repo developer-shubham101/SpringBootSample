@@ -1,5 +1,6 @@
 package com.example.reactive.controller;
 
+import com.example.reactive.dto.OrderRequest;
 import com.example.reactive.exception.InsufficientStockException;
 import com.example.reactive.exception.ProductNotFoundException;
 import com.example.reactive.model.ProductOrder;
@@ -60,12 +61,3 @@ public class OrderController {
                         Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 }
-
-/**
- * Request DTO for order creation.
- * Used to deserialize the incoming JSON request body.
- */
-class OrderRequest {
-    public String productId;
-    public int quantity;
-} 
