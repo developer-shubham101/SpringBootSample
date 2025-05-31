@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f6caafc5-bec8-4d5f-bb42-cb802e9e1e4e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/SpringBootSample.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SpringBoot-Microservice.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/ApiGatewayApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/config/GatewayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/config/RateLimiterConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/controllers/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/example/apigateway/models/AuthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/test/java/com/example/apigateway/ApiGatewayApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/docs/01-spring-mvc-vs-webflux-comparison.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/docs/02-reactor-operators-and-functions-guide.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/docs/03-reactive-programming-step-by-step-guide.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/DataInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/ReactiveApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/config/JacksonConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/config/TracingConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/config/WebClientConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/controller/BlogController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/controller/EpisodeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/controller/OrderController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/controller/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/controller/SampleDataController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/dto/OrderRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/dto/ProductDetailDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/exception/InsufficientStockException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/exception/ProductNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/exception/StockUpdateException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/Blog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/CustomEpisode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/EpisodeResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/ProductOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/model/Review.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/repository/BlogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/repository/OrderRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/repository/ProductRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/service/BlogService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/service/OrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/service/ProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/service/ReviewServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/java/com/example/reactive/service/SampleDataService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/main/resources/sample-data.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactive/src/test/java/com/example/reactive/ReactiveApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/openapi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/SBBlogProjectApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/aop/ExceptionLoggingAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/config/SwaggerBearerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/config/interceptor/FeignClientInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/config/interceptor/RestTemplateInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/controller/BlogV1Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/entity/BlogEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/entity/CommentEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/entity/ExceptionLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/mapper/BlogMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/payload/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/repository/BlogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/repository/ExceptionLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/service/BlogService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/java/com/example/sbblogbusiness/usecase/BlogUseCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/resources/application-staging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-business/src/test/java/com/example/firstproject/FirstProjectApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/openapi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/SBBlogCommentsProjectApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/aop/ExceptionLoggingAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/config/SwaggerBearerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/controller/CommentsV1Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/entity/CommentEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/entity/ExceptionLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/mapper/CommentMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/repository/CommentsRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/repository/ExceptionLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/service/CommentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/java/com/example/sbblogcomment/usecase/CommentUseCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/resources/application-staging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-comments/src/test/java/com/example/firstproject/FirstProjectApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/openapi.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/SbBlogInfoProjectApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/aop/ExceptionLoggingAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/config/SwaggerBearerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/config/interceptor/FeignClientInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/config/interceptor/RestTemplateInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/controller/BlogV1Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/entity/BlogEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/entity/CommentEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/entity/ExceptionLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/exceptions/UserAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/exceptions/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/mapper/BlogMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/payload/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/repository/BlogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/repository/ExceptionLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/service/BlogService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/usecase/BlogUseCase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/java/com/example/sbbloginfo/utility/RoleConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/resources/application-staging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-blog-info/src/test/java/com/example/sbbloginfo/FirstProjectApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/SbUserProjectApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/aop/ExceptionLoggingAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/config/ApplicationShutdown.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/config/RestTemplateConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/config/WebSecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/config/interceptor/FeignClientInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/config/interceptor/RestTemplateInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/data/SampleData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/BlogEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/CommentEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/ExceptionLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/Hotel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/Rating.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/exceptions/UserAlreadyExistsException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/exceptions/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/external/services/HotelService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/external/services/RatingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/payload/ApiResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/repository/ExceptionLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/scheduler/MyScheduledTask.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/utility/BigONotation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/utility/FileUtility.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/java/com/example/sbuser/utility/Utility.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/resources/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/resources/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/resources/application-staging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/main/resources/res/sample.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-user/src/test/java/com/example/sbuser/FirstProjectApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/src/main/java/com/example/service_discovery/ServiceDiscoveryApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/src/test/java/com/example/service_discovery/ServiceDiscoveryApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-bootcamp/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-bootcamp/logs/app.log" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2xrDosI1tiiUPTjBbNhdZp5jTCI" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ReactiveApplication.executor": "Run",
+    "Maven.spring-boot-reactive [clean].executor": "Run",
+    "Maven.spring-boot-reactive [install].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "add-log-watcher"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="ReactiveApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.reactive.ReactiveApplication" />
+      <module name="reactive" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.reactive.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ReactiveApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6caafc5-bec8-4d5f-bb42-cb802e9e1e4e" name="Changes" comment="" />
+      <created>1748687480527</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748687480527</updated>
+    </task>
+    <servers />
+  </component>
+</project>
