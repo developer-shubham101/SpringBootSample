@@ -1,0 +1,55 @@
+version: '3.8' # Or a newer compatible version
+
+services:
+  # MySQL Service
+  mysql_db:
+    image: mysql:8.0 # Or mysql:latest, but pinning versions is good practice
+    container_name: my_mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root # Example from Option 1
+      MYSQL_DATABASE: hibernate_db     # Example from Option 1
+      MYSQL_USER: devuser       # Example from Option 1
+      MYSQL_PASSWORD: devpass   # Example from Option 1
+    ports:
+      - "3306:3306" # Map host port 3306 to container port 3306
+    volumes:
+      - mysql_data:/var/lib/mysql # Persist data even if container is removed
+      # Optional: Mount custom MySQL configuration files
+      # - ./my-custom.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      - app-network
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+        timeout: 20s
+        retries: 10
+
+  # phpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: my_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80" # Map host port 8081 to container port 80 (phpMyAdmin's default)
+    environment:
+      PMA_HOST: mysql_db # This MUST be the service name of your MySQL container
+      PMA_PORT: 3306
+      # Optional: You can also set PMA_USER and PMA_PASSWORD if you want to auto-login
+      # PMA_USER: root
+      # PMA_PASSWORD: your_strong_root_password
+      UPLOAD_LIMIT: 1G # Optional: Increase upload limit for large SQL imports
+    depends_on:
+      mysql_db: # Wait for mysql_db to be healthy (if healthcheck is defined) or started
+        condition: service_healthy # or service_started if no healthcheck
+    networks:
+      - app-network
+
+# Volumes to persist data
+volumes:
+  mysql_data:
+    driver: local # Or just 'mysql_data:'
+
+# Network for services to communicate
+networks:
+  app-network:
+    driver: bridge
