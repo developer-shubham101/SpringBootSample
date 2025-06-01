@@ -5,13 +5,13 @@ import com.example.revision.sample.Rectangle
 import com.example.revision.sample.greet
 import com.example.revision.service.UserService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/kotlin")
 class KotlinExampleController(private val userService: UserService) {
-
-
 
 
     @GetMapping("/test")
@@ -35,7 +35,7 @@ class KotlinExampleController(private val userService: UserService) {
 
         val add = { x: Int, y: Int -> x + y }
 
-        var x = add(2, 3)
+        add(2, 3)
 
         return ResponseEntity.ok(address)
     }
