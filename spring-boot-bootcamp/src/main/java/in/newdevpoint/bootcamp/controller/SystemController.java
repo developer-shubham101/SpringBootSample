@@ -3,6 +3,7 @@ package in.newdevpoint.bootcamp.controller;
 import in.newdevpoint.bootcamp.data.SampleData;
 import in.newdevpoint.bootcamp.service.OrderService;
 import in.newdevpoint.bootcamp.service.SystemService;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/system")
@@ -37,17 +36,17 @@ public class SystemController {
     String googleMapKey = environment.getProperty("google.map.key");
     String apiKey = environment.getProperty("API_KEY");
 
-     logger.trace("TRACE log example");
-        logger.debug("DEBUG log example");
-        logger.info("INFO log example");
-        logger.warn("WARN log example");
-        logger.error("ERROR log example");
+    logger.trace("TRACE log example");
+    logger.debug("DEBUG log example");
+    logger.info("INFO log example");
+    logger.warn("WARN log example");
+    logger.error("ERROR log example");
 
-        try {
-            int x = 1 / 0;  // Cause an exception
-        } catch (Exception e) {
-            logger.error("Caught an exception", e);
-        }
+    try {
+      int x = 1 / 0; // Cause an exception
+    } catch (Exception e) {
+      logger.error("Caught an exception", e);
+    }
 
     return "Active profile: "
         + String.join(", ", environment.getActiveProfiles())

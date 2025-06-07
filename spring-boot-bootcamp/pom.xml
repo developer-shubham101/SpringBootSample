@@ -270,7 +270,7 @@
                 <configuration>
                     <java>
                         <googleJavaFormat>
-                            <version>1.10.0</version>
+                            <version>1.16.0</version>
                             <style>GOOGLE</style>
                         </googleJavaFormat>
                     </java>

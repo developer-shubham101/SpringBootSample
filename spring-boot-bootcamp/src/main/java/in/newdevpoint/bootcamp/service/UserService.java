@@ -9,6 +9,7 @@ import in.newdevpoint.bootcamp.entity.UserEntity;
 import in.newdevpoint.bootcamp.mapper.UserMapper;
 import in.newdevpoint.bootcamp.repository.UserRepository;
 import in.newdevpoint.bootcamp.utility.FileUtility;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -195,8 +196,14 @@ public class UserService {
    *     exist
    */
   public UserEntity uploadUserProfile(MultipartFile file, String username) {
-    String absoluteFileUrl = environment.getProperty("file.absolute.url");
-    String uploadedFileUrl = FileUtility.fileUpload(file, absoluteFileUrl);
+    String uploadPath = environment.getProperty("file.upload.path");
+    // Create upload directory if it doesn't exist
+    File uploadDir = new File(uploadPath);
+    if (!uploadDir.exists()) {
+      uploadDir.mkdirs();
+    }
+
+    String uploadedFileUrl = FileUtility.fileUpload(file, uploadPath);
 
     UserEntity existingUserEntity = userRepository.findByUsername(username).orElse(null);
     if (existingUserEntity != null) {

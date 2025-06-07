@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/spring-boot-bootcamp/pom.xml" />
         <option value="$PROJECT_DIR$/spring-boot-reactive/pom.xml" />
         <option value="$PROJECT_DIR$/spring-boot-hibernate/pom.xml" />
+        <option value="$PROJECT_DIR$/japfa-rule-engine-service/pom.xml" />
+        <option value="$PROJECT_DIR$/rule-engine-bootcamp/pom.xml" />
       </list>
     </option>
   </component>

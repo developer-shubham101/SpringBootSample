@@ -16,18 +16,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * UserUseCase class implements the Use Case pattern for user-related operations.
- * This class acts as an intermediary between the controller and service layers,
- * handling business logic and orchestrating operations.
- * 
- * Key responsibilities:
- * - Orchestrates user-related business operations
- * - Transforms data between DTOs and entities
- * - Handles business rules and validations
- * - Manages user lifecycle operations
- * 
- * The class uses constructor injection through @RequiredArgsConstructor
- * to ensure all dependencies are properly initialized.
+ * UserUseCase class implements the Use Case pattern for user-related operations. This class acts as
+ * an intermediary between the controller and service layers, handling business logic and
+ * orchestrating operations.
+ *
+ * <p>Key responsibilities: - Orchestrates user-related business operations - Transforms data
+ * between DTOs and entities - Handles business rules and validations - Manages user lifecycle
+ * operations
+ *
+ * <p>The class uses constructor injection through @RequiredArgsConstructor to ensure all
+ * dependencies are properly initialized.
  */
 @Slf4j
 @Component
@@ -35,21 +33,20 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserUseCase {
 
   /**
-   * UserMapper for converting between DTOs and entities.
-   * Injected via constructor (created by @RequiredArgsConstructor)
+   * UserMapper for converting between DTOs and entities. Injected via constructor (created
+   * by @RequiredArgsConstructor)
    */
   private final UserMapper userMapper;
 
   /**
-   * UserService for handling core user operations.
-   * Injected via constructor (created by @RequiredArgsConstructor)
+   * UserService for handling core user operations. Injected via constructor (created
+   * by @RequiredArgsConstructor)
    */
   private final UserService userService;
 
   /**
-   * Lifecycle method called after dependency injection is complete.
-   * This is where you can perform any initialization that requires
-   * the injected dependencies to be ready.
+   * Lifecycle method called after dependency injection is complete. This is where you can perform
+   * any initialization that requires the injected dependencies to be ready.
    */
   @PostConstruct
   public void init() {
@@ -57,9 +54,8 @@ public class UserUseCase {
   }
 
   /**
-   * Lifecycle method called before the bean is destroyed.
-   * Use this for cleanup operations like releasing resources
-   * or closing connections.
+   * Lifecycle method called before the bean is destroyed. Use this for cleanup operations like
+   * releasing resources or closing connections.
    */
   @PreDestroy
   public void cleanup() {
@@ -67,11 +63,9 @@ public class UserUseCase {
   }
 
   /**
-   * Retrieves all users from the system.
-   * This operation:
-   * 1. Fetches all user entities from the service layer
-   * 2. Maps them to DTOs for the presentation layer
-   * 
+   * Retrieves all users from the system. This operation: 1. Fetches all user entities from the
+   * service layer 2. Maps them to DTOs for the presentation layer
+   *
    * @return List of UserReq DTOs containing user information
    */
   public List<UserReq> getUsers() {
@@ -81,12 +75,9 @@ public class UserUseCase {
   }
 
   /**
-   * Performs a paginated search for users with filtering and sorting.
-   * This operation supports:
-   * - Pagination (size and page number)
-   * - Sorting (direction and field)
-   * - Filtering (search query)
-   * 
+   * Performs a paginated search for users with filtering and sorting. This operation supports: -
+   * Pagination (size and page number) - Sorting (direction and field) - Filtering (search query)
+   *
    * @param size Number of items per page
    * @param page Page number (0-based)
    * @param sortDir Sort direction ("asc" or "desc")
@@ -101,12 +92,9 @@ public class UserUseCase {
   }
 
   /**
-   * Updates an existing user's information.
-   * This operation:
-   * 1. Converts the request DTO to an entity
-   * 2. Updates the user in the service layer
-   * 3. Converts the updated entity back to a DTO
-   * 
+   * Updates an existing user's information. This operation: 1. Converts the request DTO to an
+   * entity 2. Updates the user in the service layer 3. Converts the updated entity back to a DTO
+   *
    * @param userReq User data to update
    * @return Updated user information as UserReq DTO
    */
@@ -118,9 +106,9 @@ public class UserUseCase {
   }
 
   /**
-   * Deletes a user from the system.
-   * This operation permanently removes the user and all associated data.
-   * 
+   * Deletes a user from the system. This operation permanently removes the user and all associated
+   * data.
+   *
    * @param id ID of the user to delete
    */
   public void deleteUser(String id) {
@@ -129,12 +117,9 @@ public class UserUseCase {
   }
 
   /**
-   * Retrieves a user by their username.
-   * This operation:
-   * 1. Searches for the user by username
-   * 2. Throws UserNotFoundException if not found
-   * 3. Maps the found user to a DTO
-   * 
+   * Retrieves a user by their username. This operation: 1. Searches for the user by username 2.
+   * Throws UserNotFoundException if not found 3. Maps the found user to a DTO
+   *
    * @param username Username to search for
    * @return User information as UserReq DTO
    * @throws UserNotFoundException if no user is found with the given username
@@ -147,12 +132,9 @@ public class UserUseCase {
   }
 
   /**
-   * Retrieves a user by their unique ID.
-   * This operation:
-   * 1. Searches for the user by ID
-   * 2. Throws UserNotFoundException if not found
-   * 3. Maps the found user to a DTO
-   * 
+   * Retrieves a user by their unique ID. This operation: 1. Searches for the user by ID 2. Throws
+   * UserNotFoundException if not found 3. Maps the found user to a DTO
+   *
    * @param id Unique identifier of the user
    * @return User information as UserReq DTO
    * @throws UserNotFoundException if no user is found with the given ID
@@ -165,12 +147,9 @@ public class UserUseCase {
   }
 
   /**
-   * Updates a user's profile with a new file.
-   * This operation:
-   * 1. Uploads the profile file
-   * 2. Updates the user's profile information
-   * 3. Returns the updated user information
-   * 
+   * Updates a user's profile with a new file. This operation: 1. Uploads the profile file 2.
+   * Updates the user's profile information 3. Returns the updated user information
+   *
    * @param file Profile file to upload
    * @param username Username of the user whose profile is being updated
    * @return Updated user information as UserReq DTO
