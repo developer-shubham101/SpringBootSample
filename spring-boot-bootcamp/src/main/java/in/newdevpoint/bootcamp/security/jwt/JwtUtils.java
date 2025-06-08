@@ -21,6 +21,7 @@ public class JwtUtils {
 
   @Value("${auth.jwtExpirationMs}")
   private int jwtExpirationMs;
+
   /**
    * Generates a JWT token for the authenticated user.
    *

@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6caafc5-bec8-4d5f-bb42-cb802e9e1e4e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-hibernate/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-hibernate/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-kotlin/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-kotlin/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-kotlin/src/main/kotlin/com/example/revision/controller/KotlinExampleController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-kotlin/src/main/kotlin/com/example/revision/controller/KotlinExampleController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-kotlin/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-kotlin/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="20eb0ceb-a920-4cd8-8b18-af406a2ff142" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +17,7 @@
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2xrDosI1tiiUPTjBbNhdZp5jTCI" />
+  <component name="ProjectId" id="2xtTjBry5wEYUzanirRaJdFHgI0" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -31,23 +25,23 @@
   "keyToString": {
     "Application.HibernateApplication.executor": "Run",
     "Application.ReactiveApplication.executor": "Run",
+    "Application.RuleEngineApplication.executor": "Run",
+    "Application.SBBootCampApplication.executor": "Run",
     "Kotlin.RevisionApplicationKt.executor": "Run",
-    "Maven.spring-boot-kotlin [install].executor": "Run",
-    "Maven.spring-boot-reactive [clean].executor": "Run",
-    "Maven.spring-boot-reactive [install].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "add-log-watcher",
-    "ignore.virus.scanning.warn.message": "true"
+    "git-widget-placeholder": "unit-test-case",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/admin/Documents/WorkSpace/GitHub/SpringBootSample",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.HibernateApplication">
+  <component name="RunManager" selected="Application.RuleEngineApplication">
     <configuration name="HibernateApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.hibernatebootcamp.HibernateApplication" />
-      <module name="hibernate-bootcamp" />
+      <module name="spring-boot-hibernate" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.hibernatebootcamp.*" />
@@ -60,7 +54,7 @@
     </configuration>
     <configuration name="ReactiveApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.reactive.ReactiveApplication" />
-      <module name="reactive" />
+      <module name="spring-boot-reactive" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.reactive.*" />
@@ -71,15 +65,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RuleEngineApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.japfa.ruleengine.RuleEngineApplication" />
+      <module name="rule-engine" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.japfa.ruleengine.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SBBootCampApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="in.newdevpoint.bootcamp.SBBootCampApplication" />
+      <module name="spring-boot-bootcamp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="in.newdevpoint.bootcamp.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RevisionApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.revision.RevisionApplicationKt" />
-      <module name="revision" />
+      <module name="spring-boot-kotlin" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RuleEngineApplication" />
+        <item itemvalue="Application.SBBootCampApplication" />
         <item itemvalue="Application.HibernateApplication" />
         <item itemvalue="Kotlin.RevisionApplicationKt" />
         <item itemvalue="Application.ReactiveApplication" />
@@ -88,12 +110,17 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f6caafc5-bec8-4d5f-bb42-cb802e9e1e4e" name="Changes" comment="" />
-      <created>1748687480527</created>
+      <changelist id="20eb0ceb-a920-4cd8-8b18-af406a2ff142" name="Changes" comment="" />
+      <created>1748756504444</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1748687480527</updated>
+      <updated>1748756504444</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/japfa-rule-engine-service" />
+    </ignored-roots>
   </component>
 </project>

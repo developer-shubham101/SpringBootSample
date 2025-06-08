@@ -7,9 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hibernate-bootcamp" />
-        <module name="revision" />
-        <module name="reactive" />
+        <module name="spring-boot-reactive" />
+        <module name="spring-boot-kotlin" />
+        <module name="spring-boot-hibernate" />
       </profile>
       <profile name="Annotation profile for spring-boot-bootcamp" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -24,13 +24,17 @@
         <module name="spring-boot-bootcamp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="rule-engine" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="hibernate-bootcamp" options="-parameters" />
-      <module name="reactive" options="-parameters" />
-      <module name="revision" options="-parameters" />
+      <module name="rule-engine" options="-parameters" />
       <module name="spring-boot-bootcamp" options="-parameters" />
+      <module name="spring-boot-hibernate" options="-parameters" />
+      <module name="spring-boot-kotlin" options="-parameters" />
+      <module name="spring-boot-reactive" options="-parameters" />
     </option>
   </component>
 </project>
