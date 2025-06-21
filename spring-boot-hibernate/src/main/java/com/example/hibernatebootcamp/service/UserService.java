@@ -17,6 +17,15 @@ public class UserService {
     }
 
     public UserEntity saveUser(UserEntity userEntity) {
+        if (userEntity == null) {
+            throw new IllegalArgumentException("User entity cannot be null.");
+        }
+        if (userEntity.getUsername() == null || userEntity.getUsername().isBlank()) {
+            throw new IllegalArgumentException("Username is required.");
+        }
+        if (userEntity.getEmail() == null || userEntity.getEmail().isBlank()) {
+            throw new IllegalArgumentException("Email is required.");
+        }
         return userRepository.save(userEntity);
     }
 } 

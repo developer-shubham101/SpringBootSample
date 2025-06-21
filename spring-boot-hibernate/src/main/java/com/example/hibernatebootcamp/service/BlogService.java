@@ -35,6 +35,21 @@ public class BlogService {
 
     @Transactional
     public BlogResponseDto createBlog(BlogRequestDto blogRequestDto) {
+        if (blogRequestDto == null) {
+            throw new IllegalArgumentException("Blog request cannot be null.");
+        }
+        if (blogRequestDto.getTitle() == null || blogRequestDto.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Blog title is required.");
+        }
+        if (blogRequestDto.getContent() == null || blogRequestDto.getContent().isBlank()) {
+            throw new IllegalArgumentException("Blog content is required.");
+        }
+        if (blogRequestDto.getAuthorId() == null) {
+            throw new IllegalArgumentException("Author ID is required.");
+        }
+        if (blogRequestDto.getCategoryIds() == null || blogRequestDto.getCategoryIds().isEmpty()) {
+            throw new IllegalArgumentException("At least one category ID is required.");
+        }
         UserEntity author = userRepository.findById(blogRequestDto.getAuthorId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + blogRequestDto.getAuthorId()));
 
@@ -86,6 +101,21 @@ public class BlogService {
 
     @Transactional
     public BlogResponseDto updateBlog(Long id, BlogRequestDto blogRequestDto) {
+        if (blogRequestDto == null) {
+            throw new IllegalArgumentException("Blog request cannot be null.");
+        }
+        if (blogRequestDto.getTitle() == null || blogRequestDto.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Blog title is required.");
+        }
+        if (blogRequestDto.getContent() == null || blogRequestDto.getContent().isBlank()) {
+            throw new IllegalArgumentException("Blog content is required.");
+        }
+        if (blogRequestDto.getAuthorId() == null) {
+            throw new IllegalArgumentException("Author ID is required.");
+        }
+        if (blogRequestDto.getCategoryIds() == null || blogRequestDto.getCategoryIds().isEmpty()) {
+            throw new IllegalArgumentException("At least one category ID is required.");
+        }
         BlogEntity blogEntity = blogRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Blog not found with id: " + id));
 

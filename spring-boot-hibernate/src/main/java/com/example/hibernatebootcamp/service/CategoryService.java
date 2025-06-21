@@ -22,6 +22,12 @@ public class CategoryService {
     }
 
     public CategoryDto createCategory(CategoryDto categoryDto) {
+        if (categoryDto == null) {
+            throw new IllegalArgumentException("Category DTO cannot be null.");
+        }
+        if (categoryDto.getName() == null || categoryDto.getName().isBlank()) {
+            throw new IllegalArgumentException("Category name is required.");
+        }
         CategoryEntity categoryEntity = categoryMapper.toEntity(categoryDto);
         CategoryEntity savedCategoryEntity = categoryRepository.save(categoryEntity);
         return categoryMapper.toDto(savedCategoryEntity);
