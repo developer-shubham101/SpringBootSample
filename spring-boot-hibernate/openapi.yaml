@@ -249,9 +249,19 @@ components:
           type: string
         content:
           type: string
+        authorId:
+          type: integer
+          format: int64
+        categoryIds:
+          type: array
+          items:
+            type: integer
+            format: int64
       required:
         - title
         - content
+        - authorId
+        - categoryIds
     BlogRes:
       type: object
       properties:
