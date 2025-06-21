@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20eb0ceb-a920-4cd8-8b18-af406a2ff142" name="Changes" comment="" />
+    <list default="true" id="20eb0ceb-a920-4cd8-8b18-af406a2ff142" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/random.txt" beforeDir="false" afterPath="$PROJECT_DIR$/random.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-hibernate/mysql-docker-setup/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-hibernate/docs/mysql-docker-setup/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-hibernate/mysql-docker-setup/how-to-setup-mysql.md" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-hibernate/docs/mysql-docker-setup/how-to-setup-mysql.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,13 +38,21 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "unit-test-case",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/admin/Documents/WorkSpace/GitHub/SpringBootSample",
+    "last_opened_file_path": "C:/Users/admin/Documents/WorkSpace/GitHub/SpringBootSample/spring-boot-hibernate",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.RuleEngineApplication">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Documents\WorkSpace\GitHub\SpringBootSample\spring-boot-hibernate" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\admin\Documents\WorkSpace\GitHub\SpringBootSample\spring-boot-hibernate\docs" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ReactiveApplication">
     <configuration name="HibernateApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.hibernatebootcamp.HibernateApplication" />
       <module name="spring-boot-hibernate" />
@@ -100,11 +114,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ReactiveApplication" />
         <item itemvalue="Application.RuleEngineApplication" />
         <item itemvalue="Application.SBBootCampApplication" />
         <item itemvalue="Application.HibernateApplication" />
         <item itemvalue="Kotlin.RevisionApplicationKt" />
-        <item itemvalue="Application.ReactiveApplication" />
       </list>
     </recent_temporary>
   </component>
