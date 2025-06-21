@@ -6,7 +6,7 @@ import com.example.hibernatebootcamp.dto.CategoryReq;
 import com.example.hibernatebootcamp.dto.CategoryRes;
 import com.example.hibernatebootcamp.mapper.CategoryMapper;
 import com.example.hibernatebootcamp.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,16 +17,15 @@ import java.util.List;
  * REST controller for managing categories.
  */
 @RestController
+@AllArgsConstructor
 public class CategoryController implements CategoriesApi {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    @Autowired
-    private CategoryMapper categoryMapper;
+    private final CategoryMapper categoryMapper;
 
     @Override
-    public ResponseEntity<CategoryRes> createCategory(@RequestBody CategoryReq categoryReq) {
+    public ResponseEntity<CategoryRes> createCategory(CategoryReq categoryReq) {
         CategoryDto categoryDto = categoryMapper.toCategoryDto(categoryReq);
         CategoryDto createdCategory = categoryService.createCategory(categoryDto);
         return ResponseEntity.ok(categoryMapper.toCategoryRes(createdCategory));

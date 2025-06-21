@@ -2,33 +2,28 @@ package com.example.hibernatebootcamp.service;
 
 import com.example.hibernatebootcamp.dto.CategoryDto;
 import com.example.hibernatebootcamp.entity.CategoryEntity;
+import com.example.hibernatebootcamp.mapper.CategoryMapper;
 import com.example.hibernatebootcamp.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
     public List<CategoryDto> getAllCategories() {
-        return categoryRepository.findAll().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+        List<CategoryEntity> categories = categoryRepository.findAll();
+        return categoryMapper.toDto(categories);
     }
 
     public CategoryDto createCategory(CategoryDto categoryDto) {
-        CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.setName(categoryDto.getName());
+        CategoryEntity categoryEntity = categoryMapper.toEntity(categoryDto);
         CategoryEntity savedCategoryEntity = categoryRepository.save(categoryEntity);
-        return convertToDto(savedCategoryEntity);
-    }
-
-    private CategoryDto convertToDto(CategoryEntity categoryEntity) {
-        return new CategoryDto(categoryEntity.getId(), categoryEntity.getName());
+        return categoryMapper.toDto(savedCategoryEntity);
     }
 } 

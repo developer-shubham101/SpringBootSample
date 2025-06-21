@@ -6,19 +6,18 @@ import com.example.hibernatebootcamp.dto.UserRes;
 import com.example.hibernatebootcamp.entity.UserEntity;
 import com.example.hibernatebootcamp.mapper.UserMapper;
 import com.example.hibernatebootcamp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class UserController implements UsersApi {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
 
     @Override
