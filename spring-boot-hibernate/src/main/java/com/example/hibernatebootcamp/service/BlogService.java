@@ -95,9 +95,8 @@ public class BlogService {
     }
 
     @Transactional(readOnly = true)
-    public Page<BlogResponseDto> getAllBlogs(Pageable pageable) {
-        Page<BlogEntity> blogPage = blogRepository.findAll(pageable);
-        return blogPage.map(this::convertToDto);
+    public List<BlogResponseDto> getAllBlogs() {
+        return blogRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @Transactional
