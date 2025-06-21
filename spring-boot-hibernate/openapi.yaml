@@ -221,12 +221,12 @@ components:
     UserReq:
       type: object
       properties:
-        name:
+        username:
           type: string
         email:
           type: string
       required:
-        - name
+        - username
         - email
     UserRes:
       type: object
