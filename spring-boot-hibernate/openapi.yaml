@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Spring Boot Hibernate API
+  version: 1.0.0
+  description: API for managing users, blogs, and categories
+paths:
+  /users/v1:
+    get:
+      summary: Get all users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRes'
+    post:
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserReq'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRes'
+  /blogs/v1:
+    get:
+      summary: Get all blogs
+      operationId: getAllBlogs
+      responses:
+        '200':
+          description: A list of blogs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRes'
+    post:
+      summary: Create a new blog
+      operationId: createBlog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogReq'
+      responses:
+        '201':
+          description: Blog created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRes'
+  /blogs/v1/{id}:
+    get:
+      summary: Find blog by ID
+      operationId: getBlogById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the blog to return
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A single blog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRes'
+        '404':
+          description: Blog not found
+    put:
+      summary: Update an existing blog
+      operationId: updateBlog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the blog to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogReq'
+      responses:
+        '200':
+          description: Blog updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlogRes'
+        '404':
+          description: Blog not found
+    delete:
+      summary: Delete a blog by ID
+      operationId: deleteBlog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the blog to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Blog deleted successfully
+        '404':
+          description: Blog not found
+  /blogs/v1/title/{title}:
+    get:
+      summary: Find blogs by title
+      operationId: getBlogsByTitle
+      parameters:
+        - name: title
+          in: path
+          required: true
+          description: Title of the blogs to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of blogs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRes'
+  /blogs/v1/user/{userId}:
+    get:
+      summary: Find blogs by user
+      operationId: getBlogsByUserId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID of the user to find blogs for
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A list of blogs for the given user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRes'
+  /blogs/v1/category/{categoryId}:
+    get:
+      summary: Find blogs by category
+      operationId: getBlogsByCategoryId
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: ID of the category to find blogs for
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A list of blogs for the given category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BlogRes'
+  /categories/v1:
+    get:
+      summary: Get all categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryRes'
+    post:
+      summary: Create a new category
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryReq'
+      responses:
+        '201':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryRes'
+components:
+  schemas:
+    UserReq:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - email
+    UserRes:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        email:
+          type: string
+      required:
+        - id
+        - username
+        - email
+    BlogReq:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        authorId:
+          type: integer
+          format: int64
+        categoryIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+      required:
+        - title
+        - content
+        - authorId
+        - categoryIds
+    BlogRes:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+        publishedDate:
+          type: string
+          format: date-time
+        author:
+          $ref: '#/components/schemas/UserRes'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryRes'
+      required:
+        - id
+        - title
+        - content
+        - publishedDate
+        - author
+        - categories
+    CategoryReq:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    CategoryRes:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      required:
+        - id
+        - name 

@@ -25,7 +25,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: your_strong_root_password # CHANGE THIS!
       MYSQL_DATABASE: spring_boot_db # Your application's database name
-      MYSQL_USER: spring_user # Your application's database user
+      MYSQL_USER: spring_user # Your application's database userEntity
       MYSQL_PASSWORD: your_strong_user_password # CHANGE THIS!
     ports:
       - "3306:3306" # Map host port 3306 to container port 3306
@@ -80,9 +80,9 @@ networks:
         *   `container_name: my_mysql_db`: A friendly name for your MySQL container.
         *   `restart: unless-stopped`: Ensures the container restarts automatically unless manually stopped.
         *   `environment:`: Sets environment variables required by the MySQL image.
-            *   `MYSQL_ROOT_PASSWORD`: **Crucial! Set a strong password for the MySQL root user.**
+            *   `MYSQL_ROOT_PASSWORD`: **Crucial! Set a strong password for the MySQL root userEntity.**
             *   `MYSQL_DATABASE`: Creates a database named `spring_boot_db` on startup.
-            *   `MYSQL_USER`: Creates a user named `spring_user`.
+            *   `MYSQL_USER`: Creates a userEntity named `spring_user`.
             *   `MYSQL_PASSWORD`: Sets the password for `spring_user`. **Change this too!**
         *   `ports: - "3306:3306"`: Maps port 3306 on your host machine to port 3306 inside the MySQL container. This allows your Spring Boot application (running on your host) to connect.
         *   `volumes: - mysql_data:/var/lib/mysql`: This is very important for data persistence. It creates a named volume `mysql_data` and mounts it to the MySQL data directory inside the container. This way, your database data will survive even if you remove and recreate the container.

@@ -15,21 +15,49 @@ This project demonstrates the integration of Spring Boot with Hibernate ORM, pro
 
 ## Project Structure
 
+The project follows a standard Maven layout:
+
 ```
-src/
-├── main/
-│   ├── java/        # Java source files
-│   └── resources/   # Configuration files
-└── test/           # Test files
+spring-boot-hibernate
+├── docs/
+│   ├── mysql-docker-setup/
+│   ├── sample-data.sql
+│   └── sql-jpa-hibernate-guide.md
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/hibernatebootcamp/
+│   │   │       ├── config/       # Spring Boot configuration
+│   │   │       ├── controller/   # REST controllers
+│   │   │       ├── dto/          # Data Transfer Objects
+│   │   │       ├── entity/       # JPA entities
+│   │   │       ├── exception/    # Custom exceptions
+│   │   │       ├── mapper/       # MapStruct mappers
+│   │   │       ├── repository/   # Spring Data repositories
+│   │   │       └── service/      # Business logic
+│   │   └── resources/   # `application.properties`, etc.
+│   └── test/
+├── pom.xml
+└── openapi.yaml
 ```
 
 ## Features
 
-- Spring Boot Web for RESTful APIs
-- Hibernate ORM for database operations
-- Spring Data JPA for simplified data access
-- Support for both H2 and MySQL databases
-- Lombok for reducing boilerplate code
+- **RESTful APIs**: Exposes REST endpoints for managing users, blogs, and categories.
+- **Spring Data JPA**: Simplifies data access layer with repository pattern.
+- **Hibernate**: As the JPA provider for ORM.
+- **Database Support**: Pre-configured for H2 (development) and MySQL (production).
+- **DTOs and Mappers**: Uses Data Transfer Objects and MapStruct for clean architecture.
+- **API Documentation**: Comes with an `openapi.yaml` file for Swagger/OpenAPI documentation.
+- **Dockerized MySQL**: Includes a Docker Compose setup for an easy-to-run MySQL environment.
+
+## Documentation
+
+- **[SQL, JPA, and Hibernate Guide](./docs/sql-jpa-hibernate-guide.md)**: A comprehensive guide covering SQL basics, JPA, and Hibernate concepts.
+- **[MySQL Setup Guide](./docs/mysql-docker-setup/how-to-setup-mysql.md)**: Detailed instructions for setting up MySQL for this project.
+- **API Reference**: The API is documented in the `openapi.yaml` file, which can be used with tools like Swagger UI.
+- **Swagger UI**: Access the interactive API documentation at [http://localhost:8080/hibernate/swagger-ui/index.html](http://localhost:8080/hibernate/swagger-ui/index.html)
+- **Sample Data**: You can populate the database with sample data using [`sample-data.sql`](./docs/sample-data.sql).
 
 ## Prerequisites
 
@@ -71,11 +99,13 @@ The project supports both H2 (in-memory) and MySQL databases:
 
 ## MySQL Setup Options
 
+For detailed instructions on setting up MySQL, refer to the [MySQL Setup Guide](./docs/mysql-docker-setup/how-to-setup-mysql.md).
+
 ### Option 1: Using Docker (Recommended)
 
-1. Navigate to the `mysql-docker-setup` directory:
+1. Navigate to the `docs/mysql-docker-setup` directory:
    ```bash
-   cd mysql-docker-setup
+   cd docs/mysql-docker-setup
    ```
 
 2. Start the MySQL container:
